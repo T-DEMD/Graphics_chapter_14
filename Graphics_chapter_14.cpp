@@ -3,7 +3,7 @@
 
 // Chapter 14.
 // Solved: 1, 4, 5, 6, 8, 9
-// Not solvet: 7 (отложено в связи со сложностью).
+// Not solvet: 7 (postponed).
 // Nothing happens: 2(?), 3.
 
 struct New_circle : Graph_lib::Shape // упр. 1
