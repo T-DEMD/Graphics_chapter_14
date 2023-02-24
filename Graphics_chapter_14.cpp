@@ -1,10 +1,10 @@
 ﻿#include "C:\Users\mkhit\OneDrive\Документы\fltk_gui\GUI\Simple_window.h" // get access to our window library
 #include "C:\Users\mkhit\OneDrive\Документы\fltk_gui\GUI\Graph.h" // get access to our graphics library facilities
 
-// Глава 14.
-// Решены: 1, 4, 5, 6, 8, 9
-// Не решено: 7 (отложено в связи со сложностью).
-// Ничего не происходит: 2(?), 3.
+// Chapter 14.
+// Solved: 1, 4, 5, 6, 8, 9
+// Not solvet: 7 (отложено в связи со сложностью).
+// Nothing happens: 2(?), 3.
 
 struct New_circle : Graph_lib::Shape // упр. 1
 {
