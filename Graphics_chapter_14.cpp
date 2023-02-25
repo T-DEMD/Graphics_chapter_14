@@ -2,7 +2,7 @@
 #include "C:\Users\mkhit\OneDrive\Документы\fltk_gui\GUI\Graph.h" // get access to our graphics library facilities
 
 // Chapter 14.
-// Solved: 1, 4, 5, 6, 8, 9
+// Solved: 1, 4, 5, 6, 8, 9, (10 - partly)
 // Not solvet: 7 (postponed).
 // Nothing happens: 2(?), 3.
 
@@ -191,7 +191,7 @@ struct Octagon : Graph_lib::Shape
 	int radius() { return r; }
 	void draw_lines() const;
 	void add_f();
-	
+
 private:
 	int r;
 	Point _xy;
@@ -263,6 +263,92 @@ void Octagon::draw_lines() const
 	}
 }
 
+template<class T> class Group
+{
+	vector<T*> v;
+	vector<T*> owned;
+public:
+	Group() {};
+	/*Group(T* a, T* b = 0, T* c = 0, T* d = 0);*/
+
+	~Group() { for (int i = 0; i < owned.size(); i++)delete owned[i]; }
+
+	void push_back(T& s) { v.push_back(&s); }
+	void push_back(T* p) { v.push_back(p); owned.push_back(p); }
+
+	T& operator[](int i) { return *v[i]; }
+	/*const T& operator[](int i)const;*/
+
+	int size()const { return v.size(); }
+
+};
+
+Group<Graph_lib::Shape> figure;
+class Chess : Graph_lib::Shape
+{
+	using Graph_lib::Shape::Shape;
+public:
+	Chess(Point xy, int x, int y) : p{ xy } { chess_board(); }
+	void chess_board();
+	void chess_symbols();
+	void vec_output();
+
+private:
+	int r;
+	string symbol = "12345678abcdefgh";
+	Point p;
+};
+
+void Chess::chess_board()
+{
+	int x = p.x;
+	int y = p.y;
+	int color = 0;
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			figure.push_back(new Graph_lib::Rectangle(Point{ i * 30 + x, j * 30 + y },
+				30, 30));
+			figure[figure.size() - 1].set_fill_color(color);
+			if (color == 0)
+			{
+				color += 7;
+			}
+			else
+			{
+				color = 0;
+			}
+		}
+		if (color == 0)
+		{
+			color += 7;
+		}
+		else
+		{
+			color = 0;
+		}
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+
+	}
+}
+
+void Chess::chess_symbols()
+{
+
+}
+
+void Chess::vec_output()
+{
+	for (int i = 0; i < figure.size(); i++)
+	{
+
+	}
+}
+
 struct Pseudo_window : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
@@ -281,9 +367,9 @@ private:
 	Point xyz;
 };
 
-Pseudo_window::Pseudo_window(Point xy, int ww, int hh) : w{ww}, h{hh}, xyz{xy}
+Pseudo_window::Pseudo_window(Point xy, int ww, int hh) : w{ ww }, h{ hh }, xyz{ xy }
 {
-	if (h <= 0 || w <=0)
+	if (h <= 0 || w <= 0)
 	{
 		error("error: ");
 	}
@@ -409,6 +495,13 @@ int main()
 	ps.set_style(Graph_lib::Line_style(Graph_lib::Line_style::solid, 5));
 
 	win2.attach(ps);
+
+	Chess ch(Point{ 400,300 }, 30, 30);
+
+	for (int i = 0; i < figure.size(); i++)
+	{
+		win2.attach(figure[i]);
+	}
 
 	win2.wait_for_button();
 }
