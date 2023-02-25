@@ -6,7 +6,7 @@
 // Not solvet: 7 (postponed).
 // Nothing happens: 2(?), 3.
 
-struct New_circle : Graph_lib::Shape // упр. 1
+struct New_circle : Graph_lib::Shape
 {
 	using Shape::Shape;
 	New_circle(Point xy, int radius);
@@ -21,7 +21,7 @@ struct New_circle : Graph_lib::Shape // упр. 1
 
 	void move(int dx, int dy)override
 	{
-		// переопределил функцию на пустую (согласно заданию).
+		// ...
 	}
 
 private:
@@ -74,7 +74,6 @@ struct Frowny : New_circle
 		New_circle::draw_lines();
 
 		if (color().visibility()) {
-			/*fl_color(color().as_int());*/
 			int rad = New_circle::radius();
 			fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
 			fl_arc(point(0).x + rad + (rad / 2) - (rad / 3), point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
@@ -135,12 +134,12 @@ void Striped_rectangle::draw_lines() const
 	int wid = Rectangle::width();
 	int hei = Rectangle::height() - 2;
 
-	if (color().visibility()) {    // lines on top of fill
+	if (color().visibility()) {
 		fl_color(color().as_int());
 		fl_rect(point(0).x, point(0).y, Rectangle::height(), Rectangle::width());
 	}
 
-	if (fill_color().visibility()) {    // fill
+	if (fill_color().visibility()) {
 		for (int i = 0; i < wid - 1; i += 3)
 		{
 			fl_line(point(0).x, point(0).y + i, point(0).x + hei, point(0).y + i);
@@ -161,14 +160,13 @@ void Striped_circle::draw_lines() const
 	int nr = New_circle::radius();
 	int step = 25;
 
-	if (fill_color().visibility()) {	// fill
+	if (fill_color().visibility()) {
 
 		for (int i = 0; i < 360; i += 50)
 		{
 			fl_color(fill_color().as_int());
 			fl_pie(point(0).x, point(0).y, nr + nr - 1, nr + nr - 1, i, step);
-			fl_color(fill_color().as_int());	// reset color
-			/*step += 25;*/
+			fl_color(fill_color().as_int());
 			step += 50;
 		}
 	}
@@ -193,10 +191,6 @@ struct Octagon : Graph_lib::Shape
 	int radius() { return r; }
 	void draw_lines() const;
 	void add_f();
-	/*~Octagon()
-	{
-		
-	}*/
 	
 private:
 	int r;
@@ -341,14 +335,14 @@ void Pseudo_window::new_box()
 
 int main()
 {
-	Point tl(100, 100); // to become top left corner of window
-	Simple_window win(tl, 1200, 800, "Canvas"); // make a simple window
-	Graph_lib::Polygon poly; // make a shape (a polygon)
-	poly.add(Point(200, 200)); // add a point
-	poly.add(Point(250, 100)); // add another point
-	poly.add(Point(300, 200)); // add a third point
-	poly.set_color(Graph_lib::Color::yellow); // adjust properties of poly
-	win.attach(poly); // connect poly to the window
+	Point tl(100, 100);
+	Simple_window win(tl, 1200, 800, "Canvas");
+	Graph_lib::Polygon poly;
+	poly.add(Point(200, 200));
+	poly.add(Point(250, 100));
+	poly.add(Point(300, 200));
+	poly.set_color(Graph_lib::Color::yellow);
+	win.attach(poly);
 
 	New_circle nc(Point{ 100,200 }, 50);
 	nc.set_color(Graph_lib::Color::black);
