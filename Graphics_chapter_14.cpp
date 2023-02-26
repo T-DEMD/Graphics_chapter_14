@@ -278,9 +278,7 @@ public:
 
 	T& operator[](int i) { return *v[i]; }
 	/*const T& operator[](int i)const;*/
-
 	int size()const { return v.size(); }
-
 };
 
 Group<Graph_lib::Shape> figure;
@@ -289,13 +287,11 @@ class Chess : Graph_lib::Shape
 	using Graph_lib::Shape::Shape;
 public:
 	Chess(Point xy, int x, int y) : p{ xy } { chess_board(); }
+	Point get_point() const;
 	void chess_board();
-	void chess_symbols();
 	void vec_output();
 
 private:
-	int r;
-	string symbol = "12345678abcdefgh";
 	Point p;
 };
 
@@ -329,24 +325,11 @@ void Chess::chess_board()
 			color = 0;
 		}
 	}
-
-	for (int i = 0; i < 8; i++)
-	{
-
-	}
 }
 
-void Chess::chess_symbols()
+Point Chess::get_point() const
 {
-
-}
-
-void Chess::vec_output()
-{
-	for (int i = 0; i < figure.size(); i++)
-	{
-
-	}
+	return p;
 }
 
 struct Pseudo_window : Graph_lib::Shape
@@ -363,7 +346,7 @@ private:
 	int width = 0;
 	int height = 0;
 	int angle = 10;
-	string new_text = "text";
+	string new_text = "Chess";
 	Point xyz;
 };
 
@@ -493,10 +476,35 @@ int main()
 	Pseudo_window ps(Point{ 100,100 }, 1000, 600);
 	ps.set_color(Graph_lib::Color::black);
 	ps.set_style(Graph_lib::Line_style(Graph_lib::Line_style::solid, 5));
-
 	win2.attach(ps);
 
 	Chess ch(Point{ 400,300 }, 30, 30);
+	Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
+	Graph_lib::Marks mrk1{ "8765432112345678" };
+
+	for (int i = 0; i < 8; i++)
+	{
+		Point x(ch.get_point().x + i * 30 + 15, ch.get_point().y + 250); // 250 -> int x
+		mrk.add(x);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		Point x(ch.get_point().x + i * 30 + 15, ch.get_point().y - 10);
+		mrk.add(x);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		Point x(ch.get_point().x - 15, ch.get_point().y + i * 30 + 15);
+		mrk1.add(x);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		Point x(ch.get_point().x + 250, ch.get_point().y + i * 30 + 15);
+		mrk1.add(x);
+	}	
+
+	win2.attach(mrk);
+	win2.attach(mrk1);
 
 	for (int i = 0; i < figure.size(); i++)
 	{
