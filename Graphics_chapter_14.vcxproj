@@ -145,18 +145,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\Graph.cpp" />
-    <ClCompile Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\GUI.cpp" />
-    <ClCompile Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\Simple_window.cpp" />
-    <ClCompile Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\Window.cpp" />
+    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Graph.cpp" />
+    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\GUI.cpp" />
+    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Simple_window.cpp" />
+    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Window.cpp" />
     <ClCompile Include="Graphics_chapter_14.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\Graph.h" />
-    <ClInclude Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\GUI.h" />
-    <ClInclude Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\Point.h" />
-    <ClInclude Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\Simple_window.h" />
-    <ClInclude Include="..\..\..\OneDrive\Документы\fltk_gui\GUI\Window.h" />
+    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Graph.h" />
+    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\GUI.h" />
+    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Point.h" />
+    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Simple_window.h" />
+    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Window.h" />
+    <ClInclude Include="..\..\..\Документы\fltk_gui\std_lib_facilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
