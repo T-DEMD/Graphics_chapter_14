@@ -1,7 +1,7 @@
 # Chapter 14
 ## *Programming - Principles and Practice Using C++*	Bjarne Stroustrup
 ### Solved: 1, 4, 5, 6, 8, 9, 10
-
+#### For graphics using FLTK (Fast Light Toolkit), is a cross-platform widget.
 ___
 
 We describe base class (struct) New_circle and sub class Smiley/Frowny, Striped_rectangle/Striped_circle (For draw smiles).
