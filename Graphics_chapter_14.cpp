@@ -82,7 +82,7 @@ struct Frowny : New_circle
 	}
 };
 
-struct Shapka_veselchuka : Smiley
+struct Clowns_hat : Smiley
 {
 	using Smiley::Smiley;
 
@@ -102,7 +102,7 @@ struct Shapka_veselchuka : Smiley
 	}
 };
 
-struct Shapka_grustishka : Frowny
+struct Brick : Frowny
 {
 	using Frowny::Frowny;
 
@@ -151,7 +151,6 @@ void Striped_rectangle::draw_lines() const
 struct Striped_circle : New_circle
 {
 	using New_circle::New_circle;
-
 	void draw_lines() const;
 };
 
@@ -202,12 +201,9 @@ void Octagon::add_f()
 {
 	int t = 0;
 	int A = 0;
-
 	A = 2 * r;
 	t = A / 2.414;
-
 	Point a, b, c, d, e, f, g, h;
-
 	a.x = _xy.x - r;
 	a.y = _xy.y - t / 2;
 	b.x = _xy.x - t / 2;
@@ -270,9 +266,7 @@ template<class T> class Group
 public:
 	Group() {};
 	/*Group(T* a, T* b = 0, T* c = 0, T* d = 0);*/
-
 	~Group() { for (int i = 0; i < owned.size(); i++)delete owned[i]; }
-
 	void push_back(T& s) { v.push_back(&s); }
 	void push_back(T* p) { v.push_back(p); owned.push_back(p); }
 
@@ -290,7 +284,6 @@ public:
 	Point get_point() const;
 	void chess_board();
 	void vec_output();
-
 private:
 	Point p;
 };
@@ -402,6 +395,14 @@ void Pseudo_window::new_box()
 	add(Point{ x,(y + angle) });
 }
 
+struct Binary_tree : Graph_lib::Shape
+{
+	using Graph_lib::Shape::Shape;
+
+	Binary_tree();
+	Binary_tree(int tree);
+};
+
 int main()
 {
 	Point tl(100, 100);
@@ -430,11 +431,11 @@ int main()
 	fr1.set_color(Graph_lib::Color::dark_green);
 	win.attach(fr1);
 
-	Shapka_veselchuka sv(Point{ 550,200 }, 70);
+	Clowns_hat sv(Point{ 550,200 }, 70);
 	sv.set_color(Graph_lib::Color::blue);
 	win.attach(sv);
 
-	Shapka_grustishka sg(Point{ 550,500 }, 30);
+	Brick sg(Point{ 550,500 }, 30);
 	sg.set_color(75);
 	win.attach(sg);
 
