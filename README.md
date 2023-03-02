@@ -3,6 +3,6 @@
 ### Solved: 1, 4, 5, 6, 8, 9, 10
 
 ________
-![Chessboard](C:\Users\mkhit\OneDrive\Рабочий стол\images\Chessboard.jpg)
-![Smiles](C:\Users\mkhit\OneDrive\Рабочий стол\chapter\Graphics_chapter_14\Smiles.jpg)
+![Chessboard](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Chessboard.jpg)
+![Smiles](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Smiles.jpg)
 
