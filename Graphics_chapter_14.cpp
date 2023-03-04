@@ -400,8 +400,29 @@ struct Binary_tree : Graph_lib::Shape
 	using Graph_lib::Shape::Shape;
 
 	Binary_tree();
-	Binary_tree(int tree);
+	Binary_tree(int level);
+
+	void draw_lines();
+	void set_levels() const;
+
+private:
+	int levels = 0;
 };
+
+Binary_tree::Binary_tree(int level) : levels{ level }
+{
+	
+}
+
+void Binary_tree::draw_lines()
+{
+	
+}
+
+void Binary_tree::set_levels() const
+{
+
+}
 
 int main()
 {
