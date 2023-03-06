@@ -398,25 +398,16 @@ void Pseudo_window::new_box()
 struct Binary_tree : Graph_lib::Shape
 {
 	using Shape::Shape;
-
-	Binary_tree();
 	Binary_tree(int level);
 	void draw_lines()const;
-
 	void draw_tree()const;
-	void set_levels();
 
 private:
-	int levels = 0;
-	int r = 30;
-	Point _xy{ 300,400 };
+	int levels;
+	int r = 10;
+	Point _xy{ 400,50 };
 	vector<Point> vp;
 };
-
-Binary_tree::Binary_tree() 
-{
-	add(_xy);
-}
 
 Binary_tree::Binary_tree(int level) : levels{level}
 {
@@ -431,7 +422,7 @@ void Binary_tree::draw_lines()const
 		fl_color(color().as_int());
 	}
 
-	if (color().visibility()) {
+	if (color().visibility() && levels!=0) {
 		fl_color(color().as_int());
 		draw_tree();
 	}
@@ -439,30 +430,29 @@ void Binary_tree::draw_lines()const
 
 void Binary_tree::draw_tree()const
 {
-	if (levels==0)
+	int xx = 0;
+	int yy = 100;
+	int n = 1;
+	for (int l = 1; l < levels; l++)
 	{
-		return;
-	}
-	else
-	{
-		for (int y = 1; y < levels; y++)
+		if (levels >= 8)
 		{
-			if (levels >= 6)
-			{
-				levels == 5;
-			}
-			for (int x = 0; x < levels; x++)
-			{
-				fl_arc(point(0).x, point(0).y, r + r, r + r, 0, 360);
-			}
-
+			levels == 6;
 		}
+		for (int i = 1; i <= n; i++)
+		{
+			fl_arc(point(0).x + xx, point(0).y + yy, r + r, r + r, 0, 360);
+			xx += 100;
+		}
+		n *= 2;
+		xx -= (75 * n);
+		yy += 100;
 	}
 }
 
 int main()
 {
-	Point tl(100, 100);
+	Point tl(10, 10);
 	Simple_window win(tl, 1200, 800, "Canvas");
 	Graph_lib::Polygon poly;
 	poly.add(Point(200, 200));
@@ -573,7 +563,7 @@ int main()
 
 	Simple_window win3(tl, 1200, 800, "Binary_tree");
 
-	Binary_tree bt(4);
+	Binary_tree bt(9);
 	bt.set_color(Graph_lib::Color::red);
 	bt.set_fill_color(Graph_lib::Color::red);
 	win3.attach(bt);
