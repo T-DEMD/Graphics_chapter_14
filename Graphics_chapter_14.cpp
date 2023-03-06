@@ -397,31 +397,67 @@ void Pseudo_window::new_box()
 
 struct Binary_tree : Graph_lib::Shape
 {
-	using Graph_lib::Shape::Shape;
+	using Shape::Shape;
 
 	Binary_tree();
 	Binary_tree(int level);
+	void draw_lines()const;
 
-	void draw_lines();
-	void set_levels() const;
+	void draw_tree()const;
+	void set_levels();
 
 private:
 	int levels = 0;
+	int r = 30;
+	Point _xy{ 300,400 };
+	vector<Point> vp;
 };
 
-Binary_tree::Binary_tree(int level) : levels{ level }
+Binary_tree::Binary_tree() 
 {
-	
+	add(_xy);
 }
 
-void Binary_tree::draw_lines()
+Binary_tree::Binary_tree(int level) : levels{level}
 {
-	
+	add(_xy);
 }
 
-void Binary_tree::set_levels() const
+void Binary_tree::draw_lines()const
 {
+	if (fill_color().visibility()) {
+		fl_color(fill_color().as_int());
+		fl_pie(point(0).x, point(0).y, r + r - 1, r + r - 1, 0, 360);
+		fl_color(color().as_int());
+	}
 
+	if (color().visibility()) {
+		fl_color(color().as_int());
+		draw_tree();
+	}
+}
+
+void Binary_tree::draw_tree()const
+{
+	if (levels==0)
+	{
+		return;
+	}
+	else
+	{
+		for (int y = 1; y < levels; y++)
+		{
+			if (levels >= 6)
+			{
+				levels == 5;
+			}
+			for (int x = 0; x < levels; x++)
+			{
+				fl_arc(point(0).x, point(0).y, r + r, r + r, 0, 360);
+			}
+
+		}
+	}
 }
 
 int main()
@@ -534,4 +570,13 @@ int main()
 	}
 
 	win2.wait_for_button();
+
+	Simple_window win3(tl, 1200, 800, "Binary_tree");
+
+	Binary_tree bt(4);
+	bt.set_color(Graph_lib::Color::red);
+	bt.set_fill_color(Graph_lib::Color::red);
+	win3.attach(bt);
+
+	win3.wait_for_button();
 }
