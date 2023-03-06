@@ -406,11 +406,16 @@ private:
 	int levels;
 	int r = 10;
 	Point _xy{ 400,50 };
-	vector<Point> vp;
 };
 
-Binary_tree::Binary_tree(int level) : levels{level}
+Binary_tree::Binary_tree(int level)
 {
+	if (level >= 8)
+	{
+		level = 7;
+		levels = level;
+	}
+	levels = level;
 	add(_xy);
 }
 
@@ -435,10 +440,7 @@ void Binary_tree::draw_tree()const
 	int n = 1;
 	for (int l = 1; l < levels; l++)
 	{
-		if (levels >= 8)
-		{
-			levels == 6;
-		}
+
 		for (int i = 1; i <= n; i++)
 		{
 			fl_arc(point(0).x + xx, point(0).y + yy, r + r, r + r, 0, 360);
