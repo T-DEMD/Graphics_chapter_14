@@ -423,7 +423,6 @@ void Binary_tree::draw_lines()const
 {
 	if (fill_color().visibility()) {
 		fl_color(fill_color().as_int());
-		fl_pie(point(0).x, point(0).y, r + r - 1, r + r - 1, 0, 360);
 		fl_color(color().as_int());
 	}
 
@@ -440,16 +439,17 @@ void Binary_tree::draw_tree()const
 	int n = 1;
 	for (int l = 1; l < levels; l++)
 	{
-
 		for (int i = 1; i <= n; i++)
 		{
 			fl_arc(point(0).x + xx, point(0).y + yy, r + r, r + r, 0, 360);
-			xx += 100;
+			fl_pie(point(0).x + xx, point(0).y + yy, r + r, r + r, 0, 360);
+			xx += 100; // x--
 		}
 		n *= 2;
 		xx -= (75 * n);
 		yy += 100;
 	}
+	fl_line(point(0).x, point(0).y, point(0).x + xx, point(0).y + yy);
 }
 
 int main()
