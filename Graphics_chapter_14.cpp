@@ -280,13 +280,13 @@ class Chess : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 public:
-	Chess(Point xy, int x, int y) : p{ xy }, w{ x }, h{ y } { chess_board(); }
+	Chess(Point xy, int square) : p{ xy }, s{ square } { chess_board(); }
 	Point get_point() const;
 	void chess_board();
+	int get_square() const { return s; }
 	void vec_output();
 private:
-	int h;
-	int w;
+	int s;
 	Point p;
 };
 
@@ -299,8 +299,8 @@ void Chess::chess_board()
 	{
 		for (int j = 0; j < 8; ++j)
 		{
-			figure.push_back(new Graph_lib::Rectangle(Point{ i * w + x, j * h + y },
-				w, h));
+			figure.push_back(new Graph_lib::Rectangle(Point{ i * s + x, j * s + y },
+				s, s));
 			figure[figure.size() - 1].set_fill_color(color);
 			if (color == 0)
 			{
@@ -326,6 +326,8 @@ Point Chess::get_point() const
 {
 	return p;
 }
+
+
 
 struct Pseudo_window : Graph_lib::Shape
 {
@@ -530,28 +532,28 @@ int main()
 	ps.set_style(Graph_lib::Line_style(Graph_lib::Line_style::solid, 5));
 	win2.attach(ps);
 
-	Chess ch(Point{ 400,300 }, 30, 30);
+	Chess ch(Point{ 400,200 }, 50);
 	Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
 	Graph_lib::Marks mrk1{ "8765432112345678" };
 
 	for (int i = 0; i < 8; i++)
 	{
-		Point x(ch.get_point().x + i * 30 + 15, ch.get_point().y + 250); // 250 -> int x
+		Point x(ch.get_point().x + i * ch.get_square() + 15, ch.get_point().y + 250); // 250 -> int x
 		mrk.add(x);
 	}
 	for (int i = 0; i < 8; i++)
 	{
-		Point x(ch.get_point().x + i * 30 + 15, ch.get_point().y - 10);
+		Point x(ch.get_point().x + i * ch.get_square() + 15, ch.get_point().y - 10);
 		mrk.add(x);
 	}
 	for (int i = 0; i < 8; i++)
 	{
-		Point x(ch.get_point().x - 15, ch.get_point().y + i * 30 + 15);
+		Point x(ch.get_point().x - 15, ch.get_point().y + i * ch.get_square() + 15);
 		mrk1.add(x);
 	}
 	for (int i = 0; i < 8; i++)
 	{
-		Point x(ch.get_point().x + 250, ch.get_point().y + i * 30 + 15);
+		Point x(ch.get_point().x + 250, ch.get_point().y + i * ch.get_square() + 15);
 		mrk1.add(x);
 	}	
 
