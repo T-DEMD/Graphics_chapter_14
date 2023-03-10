@@ -280,11 +280,13 @@ class Chess : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 public:
-	Chess(Point xy, int x, int y) : p{ xy } { chess_board(); }
+	Chess(Point xy, int x, int y) : p{ xy }, w{ x }, h{ y } { chess_board(); }
 	Point get_point() const;
 	void chess_board();
 	void vec_output();
 private:
+	int h;
+	int w;
 	Point p;
 };
 
@@ -297,8 +299,8 @@ void Chess::chess_board()
 	{
 		for (int j = 0; j < 8; ++j)
 		{
-			figure.push_back(new Graph_lib::Rectangle(Point{ i * 30 + x, j * 30 + y },
-				30, 30));
+			figure.push_back(new Graph_lib::Rectangle(Point{ i * w + x, j * h + y },
+				w, h));
 			figure[figure.size() - 1].set_fill_color(color);
 			if (color == 0)
 			{
