@@ -280,9 +280,9 @@ class Chess : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 public:
-	Chess(Point xy, int square) : p{ xy }, s{ square } { chess_board(); }
+	Chess(Point xy, int square) : p{ xy }, s{ square } { draw_chess_board(); }
 	Point get_point() const;
-	void chess_board();
+	void draw_chess_board();
 	int get_square() const { return s; }
 	void vec_output();
 private:
@@ -290,7 +290,7 @@ private:
 	Point p;
 };
 
-void Chess::chess_board()
+void Chess::draw_chess_board()
 {
 	int x = p.x;
 	int y = p.y;
@@ -326,8 +326,6 @@ Point Chess::get_point() const
 {
 	return p;
 }
-
-
 
 struct Pseudo_window : Graph_lib::Shape
 {
@@ -399,6 +397,7 @@ void Pseudo_window::new_box()
 	add(Point{ x,(y + angle) });
 }
 
+Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
 {
 	using Shape::Shape;
@@ -409,7 +408,7 @@ struct Binary_tree : Graph_lib::Shape
 private:
 	int levels;
 	int r = 10;
-	Point _xy{ 400,50 };
+	Point _xy;
 };
 
 Binary_tree::Binary_tree(int level)
@@ -420,7 +419,7 @@ Binary_tree::Binary_tree(int level)
 		levels = level;
 	}
 	levels = level;
-	add(_xy);
+	/*add(_xy);*/
 }
 
 void Binary_tree::draw_lines()const
@@ -441,19 +440,22 @@ void Binary_tree::draw_tree()const
 	int xx = 0;
 	int yy = 100;
 	int n = 1;
+	Point add_point;
 	for (int l = 1; l < levels; l++)
 	{
 		for (int i = 1; i <= n; i++)
 		{
-			fl_arc(point(0).x + xx, point(0).y + yy, r + r, r + r, 0, 360);
-			fl_pie(point(0).x + xx, point(0).y + yy, r + r, r + r, 0, 360);
 			xx += 100; // x--
+			add_point = { _xy.x + xx, _xy.y + yy };
+			figure2.push_back(new Graph_lib::Rectangle(add_point,
+				30, 30));	// test figure
+			/*figure.push_back(new New_circle(add_point, 30));*/
+			figure2[figure2.size() - 1].set_fill_color(7);
 		}
 		n *= 2;
 		xx -= (75 * n);
 		yy += 100;
 	}
-	fl_line(point(0).x, point(0).y, point(0).x + xx, point(0).y + yy);
 }
 
 int main()
@@ -532,18 +534,18 @@ int main()
 	ps.set_style(Graph_lib::Line_style(Graph_lib::Line_style::solid, 5));
 	win2.attach(ps);
 
-	Chess ch(Point{ 400,200 }, 50);
+	Chess ch(Point{ 400,200 }, 30);
 	Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
 	Graph_lib::Marks mrk1{ "8765432112345678" };
 
 	for (int i = 0; i < 8; i++)
 	{
-		Point x(ch.get_point().x + i * ch.get_square() + 15, ch.get_point().y + 250); // 250 -> int x
+		Point x(ch.get_point().x + i * ch.get_square() + 15, ch.get_point().y + 250); // corrected 250 -> int x
 		mrk.add(x);
 	}
 	for (int i = 0; i < 8; i++)
 	{
-		Point x(ch.get_point().x + i * ch.get_square() + 15, ch.get_point().y - 10);
+		Point x(ch.get_point().x + i * ch.get_square() + 15, ch.get_point().y - 10); // corrected 15, 10 -> %...
 		mrk.add(x);
 	}
 	for (int i = 0; i < 8; i++)
