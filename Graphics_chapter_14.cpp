@@ -284,7 +284,6 @@ public:
 	Point get_point() const;
 	void draw_chess_board();
 	int get_square() const { return s; }
-	void vec_output();
 private:
 	int s;
 	Point p;
@@ -299,8 +298,7 @@ void Chess::draw_chess_board()
 	{
 		for (int j = 0; j < 8; ++j)
 		{
-			figure.push_back(new Graph_lib::Rectangle(Point{ i * s + x, j * s + y },
-				s, s));
+			figure.push_back(new Graph_lib::Rectangle(Point{ i * s + x, j * s + y }, s, s));
 			figure[figure.size() - 1].set_fill_color(color);
 			if (color == 0)
 			{
@@ -400,56 +398,37 @@ void Pseudo_window::new_box()
 Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
 {
-	using Shape::Shape;
-	Binary_tree(int level);
-	void draw_lines()const;
-	void draw_tree()const;
+	using Graph_lib::Shape::Shape;
+	Binary_tree(Point z, int level) : _xy{ z }
+	{
+		if (level >= 8)
+		{
+			levels = 7;
+			draw_tree();
+		}
+		levels = level;
+		draw_tree();
+	}
+	void draw_tree();
 
 private:
 	int levels;
-	int r = 10;
 	Point _xy;
 };
 
-Binary_tree::Binary_tree(int level)
-{
-	if (level >= 8)
-	{
-		level = 7;
-		levels = level;
-	}
-	levels = level;
-	/*add(_xy);*/
-}
-
-void Binary_tree::draw_lines()const
-{
-	if (fill_color().visibility()) {
-		fl_color(fill_color().as_int());
-		fl_color(color().as_int());
-	}
-
-	if (color().visibility() && levels!=0) {
-		fl_color(color().as_int());
-		draw_tree();
-	}
-}
-
-void Binary_tree::draw_tree()const
+void Binary_tree::draw_tree()
 {
 	int xx = 0;
 	int yy = 100;
 	int n = 1;
-	Point add_point;
 	for (int l = 1; l < levels; l++)
 	{
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			add_point = { _xy.x + xx, _xy.y + yy };
-			figure2.push_back(new Graph_lib::Rectangle(add_point,
-				30, 30));	// test figure
-			/*figure.push_back(new New_circle(add_point, 30));*/
+			figure2.push_back(new Graph_lib::Rectangle(Point{ _xy.x + xx, _xy.y + yy }, 30, 30));	// test figure
+			/*figure2.push_back(new New_circle(Point{ _xy.x + xx, _xy.y + yy }, 30));*/
+			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
 		n *= 2;
@@ -571,9 +550,11 @@ int main()
 
 	Simple_window win3(tl, 1200, 800, "Binary_tree");
 
-	Binary_tree bt(9);
-	bt.set_color(Graph_lib::Color::red);
-	bt.set_fill_color(Graph_lib::Color::red);
+	Binary_tree bt(Point{ 300,200 }, 7);
+	for (int i = 0; i < figure2.size(); i++)
+	{
+		win3.attach(figure2[i]);
+	}
 	win3.attach(bt);
 
 	win3.wait_for_button();
