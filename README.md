@@ -19,3 +19,9 @@ We describe sub class Pseudo_window and Chess from base class Shape. This class 
 We describe template for class Group. Сan be created unnamed and named vectors.
 
 ![Chessboard](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Chessboard.jpg)
+
+___
+
+![](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree.jpg)
+
+in progress
