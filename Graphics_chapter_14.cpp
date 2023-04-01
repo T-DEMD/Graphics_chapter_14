@@ -435,6 +435,21 @@ void Binary_tree::draw_tree()
 		xx -= (75 * n);
 		yy += 100;
 	}
+
+	Point zero_node;
+	Point previous_node;
+	Point previous_node;
+	Point left_node;
+	Point right_node;
+
+	for (int i = 0; i < number_of_points(); i++)
+	{
+		for (int j = n; j < n; j++)
+		{
+
+		}
+		n *= 2;
+	}
 }
 
 int main()
