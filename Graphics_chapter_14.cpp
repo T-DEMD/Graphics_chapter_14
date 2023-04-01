@@ -405,18 +405,21 @@ struct Binary_tree : Graph_lib::Shape
 		{
 			levels = 7;
 			draw_tree();
+			draw_lines();
 		}
 		levels = level;
 		draw_tree();
+		draw_lines();
 	}
-	void draw_tree();
+	void draw_tree() const;
+	void draw_lines() const;
 
 private:
 	int levels;
 	Point _xy;
 };
 
-void Binary_tree::draw_tree()
+void Binary_tree::draw_tree() const
 {
 	int xx = 0;
 	int yy = 100;
@@ -435,20 +438,25 @@ void Binary_tree::draw_tree()
 		xx -= (75 * n);
 		yy += 100;
 	}
+}
 
-	Point zero_node;
-	Point previous_node;
-	Point previous_node;
-	Point left_node;
-	Point right_node;
-
-	for (int i = 0; i < number_of_points(); i++)
+void Binary_tree::draw_lines() const
+{
+	Graph_lib::Shape::draw_lines();
+	if (color().visibility())
 	{
-		for (int j = n; j < n; j++)
+		int n = 1;
+		for (int i = 0; i < number_of_points(); i++)
 		{
-
+			for (int j = n; j < n; j++)  // ...
+			{
+				fl_color(7);
+				fl_line(point(1).x, point(1).y, point(3).x, point(3).y);
+			}
+			n *= 2;
 		}
-		n *= 2;
+		fl_color(89);
+		fl_line(100, 100, 500, 100); // test
 	}
 }
 
