@@ -413,6 +413,7 @@ struct Binary_tree : Graph_lib::Shape
 	}
 	void draw_tree() const;
 	void draw_lines() const;
+	void add_f() { add(_xy); }
 
 private:
 	int levels;
