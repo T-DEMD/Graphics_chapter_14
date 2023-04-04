@@ -259,6 +259,8 @@ void Octagon::draw_lines() const
 	}
 }
 
+//--------------------------------------------------------------------
+
 template<class T> class Group
 {
 	vector<T*> v;
@@ -400,51 +402,96 @@ void Pseudo_window::new_box()
 struct Triangle : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
-	Triangle(Point x) : xy{ x } {}
-	void draw_line()const;
+	Triangle(Point x) : xy{ x } { add(xy); draw_lines(); }
+	void draw_lines()const;
 private:
 	Point xy;
 };
 
-void Triangle::draw_line()const
+void Triangle::draw_lines()const
 {
 	Graph_lib::Shape::draw_lines();
 
 	if (color().visibility())
 	{
-		fl_color(99);
-		fl_line(xy.x, xy.y, xy.x + 15, xy.y + 30);
-		fl_line(xy.x + 15, xy.y + 30, xy.x - 15, xy.y + 30);
-		fl_line(xy.x - 15, xy.y + 30, xy.x, xy.y);
+		fl_color(3);
+		fl_line(point(0).x, point(0).y, point(0).x + 10, point(0).y + 20);
+		fl_line(point(0).x + 10, point(0).y + 20, point(0).x - 10, point(0).y + 20);
+		fl_line(point(0).x - 10, point(0).y + 20, point(0).x, point(0).y);
+	}
+	if (fill_color().visibility())
+	{
+		if (fill_color().visibility())
+		{
+			//---
+		}
 	}
 }
+
+//--------------------------------------------------------------------
 
 Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
-	Binary_tree(Point z, int level) : _xy{ z }
-	{
-		if (level >= 8)
-		{
-			levels = 7;
-			draw_rectangle();
-			draw_lines();
-		}
-		levels = level;
-		draw_rectangle();
-		draw_lines();
-	}
-
+	Binary_tree(Point z, int level);
 	Binary_tree(Point z, string n_figure, int level);
 
 	void draw_rectangle() const;
+	void draw_cyrcle() const;
+	void draw_triangle() const;
 	void draw_lines() const;
 	void node_figure(string f) const;
 private:
 	int levels;
 	Point _xy;
 };
+
+Binary_tree::Binary_tree(Point z, int level) : _xy{ z }
+{
+	if (level >= 8)
+	{
+		levels = 7;
+		draw_rectangle();
+		draw_lines();
+	}
+	levels = level;
+	draw_rectangle();
+	draw_lines();
+}
+
+Binary_tree::Binary_tree(Point z, string n_figure, int level) : _xy{ z }
+{
+	if (level >= 8)
+	{
+		levels = 7;
+		node_figure(n_figure);
+		draw_lines();
+	}
+	levels = level;
+	node_figure(n_figure);
+	draw_lines();
+}
+
+void Binary_tree::node_figure(string f) const
+{
+	if (f == "rectangle")
+	{
+		draw_rectangle();
+	}
+	if (f == "cyrcle")
+	{
+
+	}
+	if (f == "triangle")
+	{
+
+	}
+	else
+	{
+
+	}
+}
 
 void Binary_tree::draw_rectangle() const
 {
@@ -468,17 +515,25 @@ void Binary_tree::draw_rectangle() const
 	}
 }
 
-Binary_tree::Binary_tree(Point z, string n_figure, int level) : _xy { z }
+void Binary_tree::draw_cyrcle() const
 {
-	if (level >= 8)
+	int xx = 0;
+	int yy = 100;
+	int n = 1;
+	for (int l = 1; l < levels; l++)
 	{
-		levels = 7;
-		node_figure(n_figure);
-		draw_lines();
+		for (int i = 1; i <= n; i++)
+		{
+			xx += 100; // x--
+			figure2.push_back(new New_circle(Point{ _xy.x + xx, _xy.y + yy }, 30));
+
+			figure2[figure2.size() - 1].set_color(8);
+			figure2[figure2.size() - 1].set_fill_color(7);
+		}
+		n *= 2;
+		xx -= (75 * n);
+		yy += 100;
 	}
-	levels = level;
-	node_figure(n_figure);
-	draw_lines();
 }
 
 void Binary_tree::draw_lines() const
@@ -492,26 +547,6 @@ void Binary_tree::draw_lines() const
 			fl_line(point(i - 1).x, point(i - 1).y, point(i).x, point(i).y);
 		}
 		fl_line(100, 100, 500, 100); // test
-	}
-}
-
-void Binary_tree::node_figure(string f) const
-{
-	if (f == "rectangle")
-	{
-		draw_rectangle();
-	}
-	if (f == "cyrcle")
-	{
-
-	}
-	if (f == "triangle")
-	{
-
-	}
-	else
-	{
-
 	}
 }
 
@@ -628,7 +663,7 @@ int main()
 
 	Simple_window win3(tl, 1200, 800, "Binary_tree");
 
-	Binary_tree bt(Point{ 300,50 }, "rectangle", 7);
+	Binary_tree bt(Point{ 300,50 }, "cyrcle", 7);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
@@ -636,6 +671,8 @@ int main()
 	bt.set_color(Graph_lib::Color::black);
 	win3.attach(bt);
 
+	Triangle tr(Point{ 300,100 });
+	win3.attach(tr);
 
 	win3.wait_for_button();
 }
