@@ -481,15 +481,11 @@ void Binary_tree::node_figure(string f) const
 	}
 	if (f == "cyrcle")
 	{
-
+		draw_cyrcle();
 	}
 	if (f == "triangle")
 	{
-
-	}
-	else
-	{
-
+		draw_triangle();
 	}
 }
 
@@ -504,8 +500,6 @@ void Binary_tree::draw_rectangle() const
 		{
 			xx += 100; // x--
 			figure2.push_back(new Graph_lib::Rectangle(Point{ _xy.x + xx, _xy.y + yy }, 30, 30));	// test figure
-			/*figure2.push_back(new New_circle(Point{ _xy.x + xx, _xy.y + yy }, 30));*/
-			/*figure2.push_back(new Triangle(Point{_xy.x+xx,_xy.y+yy});*/
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -525,8 +519,28 @@ void Binary_tree::draw_cyrcle() const
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new New_circle(Point{ _xy.x + xx, _xy.y + yy }, 30));
+			figure2.push_back(new New_circle(Point{ _xy.x + xx, _xy.y + yy }, 10));
 
+			figure2[figure2.size() - 1].set_color(8);
+			figure2[figure2.size() - 1].set_fill_color(7);
+		}
+		n *= 2;
+		xx -= (75 * n);
+		yy += 100;
+	}
+}
+
+void Binary_tree::draw_triangle() const
+{
+	int xx = 0;
+	int yy = 100;
+	int n = 1;
+	for (int l = 1; l < levels; l++)
+	{
+		for (int i = 1; i <= n; i++)
+		{
+			xx += 100; // x--
+			figure2.push_back(new Triangle(Point{_xy.x+xx,_xy.y+yy}));
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -663,16 +677,12 @@ int main()
 
 	Simple_window win3(tl, 1200, 800, "Binary_tree");
 
-	Binary_tree bt(Point{ 300,50 }, "cyrcle", 7);
+	Binary_tree bt(Point{ 300,50 }, "triangle", 7);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
 	}
-	bt.set_color(Graph_lib::Color::black);
 	win3.attach(bt);
-
-	Triangle tr(Point{ 300,100 });
-	win3.attach(tr);
 
 	win3.wait_for_button();
 }
