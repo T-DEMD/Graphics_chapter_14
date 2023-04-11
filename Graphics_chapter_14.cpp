@@ -430,6 +430,7 @@ void Triangle::draw_lines()const
 
 //--------------------------------------------------------------------
 
+vector<Point> vp;
 Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
 {
@@ -500,8 +501,9 @@ void Binary_tree::draw_rectangle() const
 		{
 			xx += 100; // x--
 			figure2.push_back(new Graph_lib::Rectangle(Point{ _xy.x + xx, _xy.y + yy }, 30, 30));	// test figure
+			vp.push_back(Point{ _xy.x + xx, _xy.y + yy });
 			figure2[figure2.size() - 1].set_color(8);
-			figure2[figure2.size() - 1].set_fill_color(7);
+			figure2[figure2.size() - 1].set_fill_color(7);\
 		}
 		n *= 2;
 		xx -= (75 * n);
@@ -520,7 +522,7 @@ void Binary_tree::draw_cyrcle() const
 		{
 			xx += 100; // x--
 			figure2.push_back(new New_circle(Point{ _xy.x + xx, _xy.y + yy }, 10));
-
+			vp.push_back(Point{ _xy.x + xx, _xy.y + yy });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -535,12 +537,14 @@ void Binary_tree::draw_triangle() const
 	int xx = 0;
 	int yy = 100;
 	int n = 1;
+	Point k;
 	for (int l = 1; l < levels; l++)
 	{
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
 			figure2.push_back(new Triangle(Point{ _xy.x + xx,_xy.y + yy }));
+			vp.push_back(Point{ _xy.x + xx, _xy.y + yy });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -556,11 +560,10 @@ void Binary_tree::draw_lines() const
 	if (color().visibility())
 	{
 		fl_color(89);
-		for (int i = 1; i < number_of_points(); i += 2)
+		for (int i = 1; i < vp.size(); i+=2)
 		{
-			fl_line(point(i - 1).x, point(i - 1).y, point(i).x, point(i).y);
+			fl_line(vp[i].x, vp[i].y, vp[i - 1].x, vp[i - 1].y); // test
 		}
-		fl_line(100, 100, 500, 100); // test
 	}
 }
 
