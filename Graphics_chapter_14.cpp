@@ -540,7 +540,7 @@ void Binary_tree::draw_triangle() const
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new Triangle(Point{_xy.x+xx,_xy.y+yy}));
+			figure2.push_back(new Triangle(Point{ _xy.x + xx,_xy.y + yy }));
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
