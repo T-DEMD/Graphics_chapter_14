@@ -277,8 +277,6 @@ public:
 	int size()const { return v.size(); }
 };
 
-
-
 Group<Graph_lib::Shape> figure;
 class Chess : Graph_lib::Shape
 {
@@ -399,11 +397,17 @@ void Pseudo_window::new_box()
 	add(Point{ x,(y + angle) });
 }
 
+//--------------------------------------------------------------------
+
 struct Triangle : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
+	Triangle(){}
 	Triangle(Point x) : xy{ x } { add(xy); draw_lines(); }
 	void draw_lines()const;
+	void set_point(Point i) { xy = i; }
+	const Point get_point()const { return xy; }
+
 private:
 	Point xy;
 };
@@ -428,9 +432,6 @@ void Triangle::draw_lines()const
 	}
 }
 
-//--------------------------------------------------------------------
-
-vector<Point> vp;
 Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
 {
@@ -445,10 +446,10 @@ struct Binary_tree : Graph_lib::Shape
 	void node_figure(string f) const;
 private:
 	int levels;
-	Point xy;
+	Point _xy;
 };
 
-Binary_tree::Binary_tree(Point z, int level) : xy{ z }
+Binary_tree::Binary_tree(Point z, int level) : _xy{ z }
 {
 	if (level >= 8)
 	{
@@ -461,7 +462,7 @@ Binary_tree::Binary_tree(Point z, int level) : xy{ z }
 	draw_lines();
 }
 
-Binary_tree::Binary_tree(Point z, string n_figure, int level) : xy{ z }
+Binary_tree::Binary_tree(Point z, string n_figure, int level) : _xy{ z }
 {
 	if (level >= 8)
 	{
@@ -495,16 +496,14 @@ void Binary_tree::draw_rectangle() const
 	int xx = 0;
 	int yy = 100;
 	int n = 1;
-	for (int l = 0; l < levels; l++)
+	for (int l = 1; l < levels; l++)
 	{
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new Graph_lib::Rectangle(Point{ xy.x + xx, xy.y + yy }, 20, 20));	// test figure
-			vp.push_back(Point{ xy.x + xx, xy.y + yy });
-			figure2[figure2.size() - 1].set_color(8);
+			figure2.push_back(new Graph_lib::Rectangle(Point{ _xy.x + xx, _xy.y + yy }, 30, 30));	// test figure
+			figure2[figure2.size() - 1].set_color(7);
 			figure2[figure2.size() - 1].set_fill_color(7);
-			fl_line(100, 200, 200, 200);
 		}
 		n *= 2;
 		xx -= (75 * n);
@@ -517,13 +516,12 @@ void Binary_tree::draw_cyrcle() const
 	int xx = 0;
 	int yy = 100;
 	int n = 1;
-	for (int l = 0; l < levels; l++)
+	for (int l = 1; l < levels; l++)
 	{
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new New_circle(Point{ xy.x + xx, xy.y + yy }, 10));
-			vp.push_back(Point{ xy.x + xx, xy.y + yy });
+			figure2.push_back(new New_circle(Point{ _xy.x + xx, _xy.y + yy }, 10));
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -538,14 +536,12 @@ void Binary_tree::draw_triangle() const
 	int xx = 0;
 	int yy = 100;
 	int n = 1;
-	Point k;
-	for (int l = 0; l < levels; l++)
+	for (int l = 1; l < levels; l++)
 	{
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new Triangle(Point{ xy.x + xx,xy.y + yy }));
-			vp.push_back(Point{ xy.x + xx, xy.y + yy });
+			figure2.push_back(new Triangle(Point{_xy.x+xx,_xy.y+yy}));
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -558,22 +554,13 @@ void Binary_tree::draw_triangle() const
 void Binary_tree::draw_lines() const
 {
 	Graph_lib::Shape::draw_lines();
+
 	if (color().visibility())
 	{
-		fl_color(89);
-		int step = 2;
-		int root = 0;
-		int left = 1;
-		int right = 2;
-		for (int i = 0; i < vp.size(); i+=step+1)
+		Triangle tr;
+		for(int y = 0; y <= figure2.size(); y++)
 		{
-			for (int j = 0; j <= step; j++)
-			{
-				fl_line(vp[root].x, vp[root].y, vp[left].x, vp[left].y);
-				fl_line(vp[root].x, vp[root].y, vp[right].x, vp[right].y);
-				
-			}
-			step *= 2;
+			
 		}
 	}
 }
@@ -691,7 +678,7 @@ int main()
 
 	Simple_window win3(tl, 1200, 800, "Binary_tree");
 
-	Binary_tree bt(Point{ 300,50 }, "rectangle", 6);
+	Binary_tree bt(Point{ 300,50 }, "triangle", 7);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
