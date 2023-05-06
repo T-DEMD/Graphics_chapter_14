@@ -402,6 +402,7 @@ void Pseudo_window::new_box()
 struct Triangle : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
+	Triangle() {}
 	Triangle(Point x) : xy{ x } { add(xy); draw_lines(); }
 	void draw_lines()const;
 private:
@@ -439,10 +440,11 @@ struct Binary_tree : Graph_lib::Shape
 	Binary_tree(Point z, string n_figure, int level);
 
 	void draw_rectangle() const;
-	void draw_cyrcle() const;
 	void draw_triangle() const;
+	void draw_cyrcle() const;
 	void draw_lines() const;
 	void node_figure(string f) const;
+	
 private:
 	int levels;
 	Point xy;
@@ -560,20 +562,30 @@ void Binary_tree::draw_lines() const
 	Graph_lib::Shape::draw_lines();
 	if (color().visibility())
 	{
-		fl_color(89);
-		int step = 2;
-		int root = 0;
-		int left = 1;
-		int right = 2;
-		for (int i = 0; i < vp.size(); i+=step+1)
+		int start = 0;
+		int end = 0;
+		int left = 0;
+		int right = 0;
+		int midl = 0;
+		for (int i = 1; i < vp.size(); i*=2)
 		{
-			for (int j = 0; j <= step; j++)
+			start = i;
+			end = i *= 2;
+			midl = start + end / 2;
+			for (int y = start; y < end; y++)
 			{
-				fl_line(vp[root].x, vp[root].y, vp[left].x, vp[left].y);
-				fl_line(vp[root].x, vp[root].y, vp[right].x, vp[right].y);
-				
+				/*p.x = vp[y].x;
+				p.y = vp[y].y;*/
+				if (y<midl)
+				{
+					left = y;
+					fl_line(vp[left].x, vp[left].y, vp[y].x, vp[y].y);
+				}
+				else
+				{
+					fl_line(vp[right].x, vp[right].y, vp[y].x, vp[y].y);
+				}
 			}
-			step *= 2;
 		}
 	}
 }
