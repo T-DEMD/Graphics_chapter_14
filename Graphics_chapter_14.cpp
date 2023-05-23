@@ -2,7 +2,7 @@
 #include "C:\Users\mkhit\OneDrive\Документы\fltk_gui\GUI\Graph.h" // get access to our graphics library facilities
 
 // Chapter 14.
-// Solved: 1, 4, 5, 6, 8, 9, (10 - partly)
+// Solved: 1, 4, 5, 6, 8, 9, 10, 11
 // Not solvet: 7 (postponed).
 // Nothing happens: 2(?), 3.
 

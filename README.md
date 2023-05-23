@@ -22,6 +22,6 @@ We describe template for class Group. Сan be created unnamed and named vectors.
 
 ___
 
-![Binary_tree](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree.jpg)
+![Binary_tree](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree_completed.jpg)
 
 ...in progress
