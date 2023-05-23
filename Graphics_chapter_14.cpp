@@ -466,13 +466,8 @@ Binary_tree::Binary_tree(Point z, int level) : xy{ z }
 
 void Binary_tree::draw_lines() const
 {
-
 	if (color().visibility())
 	{
-		fl_color(89);
-		fl_line(vp[0].x, vp[0].y, vp[1].x, vp[1].y);
-		fl_line(vp[0].x, vp[0].y, vp[2].x, vp[2].y);
-
 		fl_color(99);
 		int start = 0;
 		int end = 0;
@@ -482,8 +477,6 @@ void Binary_tree::draw_lines() const
 			start = i;
 			end = i * 2;
 			midl = (start + end) / 2;
-			int left = start * 2;
-			int right = (start * 2) + 1;
 			
 			for (int y = start; y <= end; y++)
 			{
