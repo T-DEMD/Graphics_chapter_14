@@ -441,6 +441,13 @@ protected:
 	Binary_tree(){}
 	Binary_tree(Point z, int level);
 	virtual void draw_lines()const;
+	virtual void f_k(int k)const
+	{
+		int left = 2 * k;
+		int right = (2 * k) + 1;
+		fl_line(vp[k].x, vp[k].y, vp[left].x, vp[left].y);
+		fl_line(vp[k].x, vp[k].y, vp[right].x, vp[right].y);
+	}
 private:
 	int levels;
 	Point xy;
@@ -482,14 +489,12 @@ void Binary_tree::draw_lines() const
 			{
 				if (midl < y)
 				{
-					fl_line(vp[start].x, vp[start].y, vp[left].x, vp[left].y);
-					fl_line(vp[start].x, vp[start].y, vp[right].x, vp[right].y);
+					f_k(y);
 				}
-				/*else
+				else
 				{
-					fl_line(vp[end].x, vp[end].y, vp[left + 1].x, vp[left + 1].y);
-					fl_line(vp[end].x, vp[end].y, vp[right + 1].x, vp[right + 1].y);
-				}*/
+					f_k(y);
+				}
 			}
 		}
 	}
