@@ -3,8 +3,7 @@
 
 // Chapter 14.
 // Solved: 1, 4, 5, 6, 8, 9, 10, 11
-// Not solvet: 7 (postponed).
-// Nothing happens: 2(?), 3.
+// Not solvet: 2, 3, 7 (postponed).
 
 struct New_circle : Graph_lib::Shape
 {
@@ -517,7 +516,7 @@ void Binary_tree_from_triangle::draw_triangle() const
 	vp.push_back(Point{ 0,0 });
 	for (int l = 0; l < levels; l++)
 	{
-		for (int i = 0; i <= n; i++)
+		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
 			figure2.push_back(new Triangle(Point{ xy.x + xx,xy.y + yy }));
@@ -555,7 +554,7 @@ void Binary_tree_from_rectangle::draw_rectangle() const
 	vp.push_back(Point{ 0,0 });
 	for (int l = 0; l < levels; l++)
 	{
-		for (int i = 0; i <= n; i++)
+		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
 			figure2.push_back(new Graph_lib::Rectangle(Point{ xy.x + xx, xy.y + yy }, 20, 20));	// test figure
@@ -720,7 +719,7 @@ int main()
 
 	Simple_window win3(tl, 1200, 800, "Binary_tree");
 
-	Binary_tree_from_cyrcle bt(Point{ 300,50 }, 5);
+	Binary_tree_from_rectangle bt(Point{ 300,50 }, 6);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
