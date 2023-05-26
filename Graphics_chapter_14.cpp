@@ -520,7 +520,7 @@ void Binary_tree_from_triangle::draw_triangle() const
 		{
 			xx += 100; // x--
 			figure2.push_back(new Triangle(Point{ xy.x + xx,xy.y + yy }));
-			vp.push_back(Point{ xy.x + xx, xy.y + yy });
+			vp.push_back(Point{ xy.x + xx, xy.y + yy + 20 });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -558,7 +558,7 @@ void Binary_tree_from_rectangle::draw_rectangle() const
 		{
 			xx += 100; // x--
 			figure2.push_back(new Graph_lib::Rectangle(Point{ xy.x + xx, xy.y + yy }, 20, 20));	// test figure
-			vp.push_back(Point{ xy.x + xx, xy.y + yy });
+			vp.push_back(Point{ xy.x + xx + 10, xy.y + yy + 10 });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 			fl_line(100, 200, 200, 200);
@@ -719,7 +719,7 @@ int main()
 
 	Simple_window win3(tl, 1200, 800, "Binary_tree");
 
-	Binary_tree_from_rectangle bt(Point{ 300,50 }, 6);
+	Binary_tree_from_triangle bt(Point{ 300,50 }, 6);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
