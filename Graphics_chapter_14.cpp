@@ -4,6 +4,7 @@
 // Chapter 14.
 // Solved: 1, 4, 5, 6, 8, 9, 10, 11
 // Not solvet: 2, 3, 7 (postponed).
+//--------------------------------------------------------------------
 
 struct New_circle : Graph_lib::Shape
 {
@@ -46,6 +47,8 @@ void New_circle::draw_lines() const
 	}
 }
 
+//--------------------------------------------------------------------
+
 struct Smiley : New_circle
 {
 	using New_circle::New_circle;
@@ -64,6 +67,8 @@ struct Smiley : New_circle
 	}
 };
 
+//--------------------------------------------------------------------
+
 struct Frowny : New_circle
 {
 	using New_circle::New_circle;
@@ -80,6 +85,8 @@ struct Frowny : New_circle
 		}
 	}
 };
+
+//--------------------------------------------------------------------
 
 struct Clowns_hat : Smiley
 {
@@ -101,6 +108,8 @@ struct Clowns_hat : Smiley
 	}
 };
 
+//--------------------------------------------------------------------
+
 struct Brick : Frowny
 {
 	using Frowny::Frowny;
@@ -121,6 +130,8 @@ struct Brick : Frowny
 		}
 	}
 };
+
+//--------------------------------------------------------------------
 
 struct Striped_rectangle : Graph_lib::Rectangle
 {
@@ -146,6 +157,8 @@ void Striped_rectangle::draw_lines() const
 		}
 	}
 }
+
+//--------------------------------------------------------------------
 
 struct Striped_circle : New_circle
 {
@@ -175,10 +188,14 @@ void Striped_circle::draw_lines() const
 	}
 }
 
+//--------------------------------------------------------------------
+
 struct Striped_closed_polyline : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 };
+
+//--------------------------------------------------------------------
 
 struct Octagon : Graph_lib::Shape
 {
@@ -276,7 +293,7 @@ public:
 	int size()const { return v.size(); }
 };
 
-
+//--------------------------------------------------------------------
 
 Group<Graph_lib::Shape> figure;
 class Chess : Graph_lib::Shape
@@ -327,6 +344,9 @@ Point Chess::get_point() const
 {
 	return p;
 }
+
+//--------------------------------------------------------------------
+// Pseudo window class
 
 struct Pseudo_window : Graph_lib::Shape
 {
@@ -398,6 +418,9 @@ void Pseudo_window::new_box()
 	add(Point{ x,(y + angle) });
 }
 
+//--------------------------------------------------------------------
+// struct draw Triangle
+
 struct Triangle : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
@@ -429,7 +452,28 @@ void Triangle::draw_lines()const
 }
 
 //--------------------------------------------------------------------
+// Struct draw arrow for using branches Binary_tree
 
+struct Arrow : Graph_lib::Shape
+{
+	using Graph_lib::Shape::Shape;
+	void draw_lines()const;
+};
+
+void Arrow::draw_lines() const
+{
+	Graph_lib::Shape::draw_lines();
+
+	if (color().visibility())
+	{
+		fl_color(33);
+		fl_line(point(0).x, point(0).y, point(0).x - 30, point(0).y - 30);
+	}
+}
+
+//--------------------------------------------------------------------
+
+// vector for save node center point
 vector<Point> vp;
 
 Group<Graph_lib::Shape> figure2;
@@ -438,8 +482,8 @@ struct Binary_tree : Graph_lib::Shape
 	using Graph_lib::Shape::Shape;
 protected:
 	Binary_tree(){}
-	Binary_tree(Point z, int level);
 	virtual void draw_lines()const;
+	
 	virtual void f_k(int k)const
 	{
 		int left = 2 * k;
@@ -447,22 +491,13 @@ protected:
 		fl_line(vp[k].x, vp[k].y, vp[left].x, vp[left].y);
 		fl_line(vp[k].x, vp[k].y, vp[right].x, vp[right].y);
 	}
+	
 private:
-	int levels;
+	string s;
 	Point xy;
 };
 
-Binary_tree::Binary_tree(Point z, int level) : xy{ z }
-{
-	if (level >= 8)
-	{
-		levels = 7;
-		draw_lines();
-	}
-	levels = level;
-	draw_lines();
-}
-
+// function for draw branches
 void Binary_tree::draw_lines() const
 {
 	if (color().visibility())
@@ -492,20 +527,44 @@ void Binary_tree::draw_lines() const
 	}
 }
 
+//--------------------------------------------------------------------
+
 struct Binary_tree_from_triangle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
-	Binary_tree_from_triangle(Point p, int x);
+	Binary_tree_from_triangle(Point p, int level);
+	Binary_tree_from_triangle(Point p, int level, string mark);
 	void draw_triangle() const;
+	void clean_over_level(int l);
 
 private:
 	int levels;
+	string s;
 	Point xy;
 };
 
-Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}, levels{level}
+Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}
 {
-	draw_triangle();
+	clean_over_level(level);
+}
+
+Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level, string mark) : xy{ p }, s{mark}
+{
+	clean_over_level(level);
+}
+
+void Binary_tree_from_triangle::clean_over_level(int l)
+{
+	if (l > 7)
+	{
+		levels = 7;
+		draw_triangle();
+	}
+	else
+	{
+		levels = l;
+		draw_triangle();
+	}
 }
 
 void Binary_tree_from_triangle::draw_triangle() const
@@ -530,20 +589,45 @@ void Binary_tree_from_triangle::draw_triangle() const
 	}
 }
 
-struct Binary_tree_from_rectangle : Binary_tree
+//--------------------------------------------------------------------
+
+struct Binary_tree_from_rectangle :	 Binary_tree
 {
 	using Binary_tree::Binary_tree;
 	Binary_tree_from_rectangle(Point p, int x);
+	Binary_tree_from_rectangle(Point p, int x, string mark);
 	void draw_rectangle() const;
 
 private:
 	int levels;
+	string m;
 	Point xy;
 };
 
 Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level) : xy{ p }, levels{ level }
 {
-	draw_rectangle();
+	if (level > 7)
+	{
+		levels = 7;
+		draw_rectangle();
+	}
+	else
+	{
+		draw_rectangle();
+	}
+}
+
+Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level, string mark) : xy{ p }, levels{ level }, m{mark}
+{
+	if (level > 7)
+	{
+		levels = 7;
+		draw_rectangle();
+	}
+	else
+	{
+		draw_rectangle();
+	}
 }
 
 void Binary_tree_from_rectangle::draw_rectangle() const
@@ -568,6 +652,8 @@ void Binary_tree_from_rectangle::draw_rectangle() const
 		yy += 100;
 	}
 }
+
+//--------------------------------------------------------------------
 
 struct Binary_tree_from_cyrcle : Binary_tree
 {
@@ -719,7 +805,7 @@ int main()
 
 	Simple_window win3(tl, 1200, 800, "Binary_tree");
 
-	Binary_tree_from_triangle bt(Point{ 300,50 }, 6);
+	Binary_tree_from_triangle bt(Point{ 300,50 }, 6, "l");
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
