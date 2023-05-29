@@ -452,26 +452,6 @@ void Triangle::draw_lines()const
 }
 
 //--------------------------------------------------------------------
-// Struct draw arrow for using branches Binary_tree
-
-struct Arrow : Graph_lib::Shape
-{
-	using Graph_lib::Shape::Shape;
-	void draw_lines()const;
-};
-
-void Arrow::draw_lines() const
-{
-	Graph_lib::Shape::draw_lines();
-
-	if (color().visibility())
-	{
-		fl_color(33);
-		fl_line(point(0).x, point(0).y, point(0).x - 30, point(0).y - 30);
-	}
-}
-
-//--------------------------------------------------------------------
 
 // vector for save node center point
 vector<Point> vp;
@@ -483,7 +463,6 @@ struct Binary_tree : Graph_lib::Shape
 protected:
 	Binary_tree(){}
 	virtual void draw_lines()const;
-	
 	virtual void f_k(int k)const
 	{
 		int left = 2 * k;
@@ -491,10 +470,7 @@ protected:
 		fl_line(vp[k].x, vp[k].y, vp[left].x, vp[left].y);
 		fl_line(vp[k].x, vp[k].y, vp[right].x, vp[right].y);
 	}
-	
 private:
-	string s;
-	Point xy;
 };
 
 // function for draw branches
@@ -533,36 +509,23 @@ struct Binary_tree_from_triangle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
 	Binary_tree_from_triangle(Point p, int level);
-	Binary_tree_from_triangle(Point p, int level, string mark);
 	void draw_triangle() const;
-	void clean_over_level(int l);
 
 private:
 	int levels;
-	string s;
 	Point xy;
 };
 
-Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}
+Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}, levels{level}
 {
-	clean_over_level(level);
-}
-
-Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level, string mark) : xy{ p }, s{mark}
-{
-	clean_over_level(level);
-}
-
-void Binary_tree_from_triangle::clean_over_level(int l)
-{
-	if (l > 7)
+	if (level > 6)
 	{
-		levels = 7;
+		levels = 6;
 		draw_triangle();
 	}
 	else
 	{
-		levels = l;
+		levels = level;
 		draw_triangle();
 	}
 }
@@ -594,38 +557,24 @@ void Binary_tree_from_triangle::draw_triangle() const
 struct Binary_tree_from_rectangle :	 Binary_tree
 {
 	using Binary_tree::Binary_tree;
-	Binary_tree_from_rectangle(Point p, int x);
-	Binary_tree_from_rectangle(Point p, int x, string mark);
+	Binary_tree_from_rectangle(Point p, int level);
 	void draw_rectangle() const;
 
 private:
 	int levels;
-	string m;
 	Point xy;
 };
 
 Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level) : xy{ p }, levels{ level }
 {
-	if (level > 7)
+	if (level > 6)
 	{
-		levels = 7;
+		levels = 6;
 		draw_rectangle();
 	}
 	else
 	{
-		draw_rectangle();
-	}
-}
-
-Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level, string mark) : xy{ p }, levels{ level }, m{mark}
-{
-	if (level > 7)
-	{
-		levels = 7;
-		draw_rectangle();
-	}
-	else
-	{
+		levels = level;
 		draw_rectangle();
 	}
 }
@@ -658,16 +607,25 @@ void Binary_tree_from_rectangle::draw_rectangle() const
 struct Binary_tree_from_cyrcle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
-	Binary_tree_from_cyrcle(Point p, int x);
+	Binary_tree_from_cyrcle(Point p, int level);
 	void draw_cyrcle() const;
 private:
 	int levels;
 	Point xy;
 };
 
-Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }, levels{ level }
+Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }
 {
-	draw_cyrcle();
+	if (level>6)
+	{
+		levels = 6;
+		draw_cyrcle();
+	}
+	else
+	{
+		levels = level;
+		draw_cyrcle();
+	}
 }
 
 void Binary_tree_from_cyrcle::draw_cyrcle() const
@@ -803,9 +761,9 @@ int main()
 
 	win2.wait_for_button();
 
-	Simple_window win3(tl, 1200, 800, "Binary_tree");
+	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_triangle bt(Point{ 300,50 }, 6, "l");
+	Binary_tree_from_rectangle bt(Point{ 400,50 }, 8);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
