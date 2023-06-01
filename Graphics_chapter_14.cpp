@@ -21,7 +21,7 @@ struct New_circle : Graph_lib::Shape
 
 	void move(int dx, int dy)override
 	{
-		// ...
+		// move off...
 	}
 
 private:
@@ -133,6 +133,7 @@ struct Brick : Frowny
 
 //--------------------------------------------------------------------
 
+// Striped rectangle from struct Rectangle
 struct Striped_rectangle : Graph_lib::Rectangle
 {
 	using Rectangle::Rectangle;
@@ -149,6 +150,7 @@ void Striped_rectangle::draw_lines() const
 		fl_rect(point(0).x, point(0).y, Rectangle::height(), Rectangle::width());
 	}
 
+	// draw striped with a step 3 pixel
 	if (fill_color().visibility()) {
 		for (int i = 0; i < wid - 1; i += 3)
 		{
@@ -160,6 +162,7 @@ void Striped_rectangle::draw_lines() const
 
 //--------------------------------------------------------------------
 
+// Striped circle from struct circle
 struct Striped_circle : New_circle
 {
 	using New_circle::New_circle;
@@ -215,6 +218,7 @@ private:
 
 void Octagon::add_f()
 {
+	// defining corners octagon
 	int t = 0;
 	int A = 0;
 	A = 2 * r;
@@ -237,6 +241,7 @@ void Octagon::add_f()
 	h.x = _xy.x - r;
 	h.y = _xy.y + t / 2;
 
+	// add corners octagon for draw sides (lines) 
 	Shape::add(a);
 	Shape::add(b);
 	Shape::add(b);
@@ -470,7 +475,11 @@ protected:
 		fl_line(vp[k].x, vp[k].y, vp[left].x, vp[left].y);
 		fl_line(vp[k].x, vp[k].y, vp[right].x, vp[right].y);
 	}
+	virtual void draw_mark()const;
 private:
+	int lev;
+	string m;
+	Point xy;
 };
 
 // function for draw branches
@@ -503,6 +512,11 @@ void Binary_tree::draw_lines() const
 	}
 }
 
+void Binary_tree::draw_mark()const
+{
+
+}
+
 //--------------------------------------------------------------------
 
 struct Binary_tree_from_triangle : Binary_tree
@@ -516,6 +530,7 @@ private:
 	Point xy;
 };
 
+// forced reduction levels and defining variables
 Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}, levels{level}
 {
 	if (level > 6)
@@ -565,6 +580,7 @@ private:
 	Point xy;
 };
 
+// forced reduction levels and defining variables
 Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level) : xy{ p }, levels{ level }
 {
 	if (level > 6)
@@ -614,6 +630,7 @@ private:
 	Point xy;
 };
 
+// forced reduction levels and defining variables
 Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }
 {
 	if (level>6)
