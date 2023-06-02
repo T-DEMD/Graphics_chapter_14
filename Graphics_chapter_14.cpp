@@ -472,8 +472,8 @@ protected:
 	{
 		int left = 2 * k;
 		int right = (2 * k) + 1;
-		fl_line(vp[k].x, vp[k].y, vp[left].x, vp[left].y);
-		fl_line(vp[k].x, vp[k].y, vp[right].x, vp[right].y);
+		fl_line(vp[k].x, vp[k].y + 10, vp[left].x, vp[left].y - 10);
+		fl_line(vp[k].x, vp[k].y + 10, vp[right].x, vp[right].y - 10);
 	}
 	virtual void draw_mark()const;
 private:
