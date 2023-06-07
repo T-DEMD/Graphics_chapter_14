@@ -474,7 +474,7 @@ protected:
 private:
 	int lev;
 	string s;
-	//string m;
+	string m;
 };
 
 // function for draw branches
@@ -482,7 +482,6 @@ void Binary_tree::draw_lines() const
 {
 	if (color().visibility())
 	{
-		fl_color(99);
 		int start = 0;
 		int end = 0;
 		int midl = 0;
@@ -511,6 +510,7 @@ void Binary_tree::draw_lines() const
 // 
 void Binary_tree::f_k(int k) const
 {
+	if (color().visibility())
 	{
 		if (s == "down")
 		{
@@ -733,19 +733,22 @@ void Binary_tree_from_cyrcle::draw_cyrcle() const
 	int yy = 100;
 	int n = 1;
 	vp.push_back(Point{ 0,0 });
-	for (int l = 0; l < levels; l++)
+	if (color().visibility())
 	{
-		for (int i = 1; i <= n; i++)
+		for (int l = 0; l < levels; l++)
 		{
-			xx += 100; // x--
-			figure2.push_back(new New_circle(Point{ p.x + xx, p.y + yy }, 10));
-			vp.push_back(Point{ p.x + xx + 10, p.y + yy + 10 });
-			figure2[figure2.size() - 1].set_color(8);
-			figure2[figure2.size() - 1].set_fill_color(7);
+			for (int i = 1; i <= n; i++)
+			{
+				xx += 100; // x--
+				figure2.push_back(new New_circle(Point{ p.x + xx, p.y + yy }, 10));
+				vp.push_back(Point{ p.x + xx + 10, p.y + yy + 10 });
+				figure2[figure2.size() - 1].set_color(8);
+				figure2[figure2.size() - 1].set_fill_color(7);
+			}
+			n *= 2;
+			xx -= (75 * n);
+			yy += 100;
 		}
-		n *= 2;
-		xx -= (75 * n);
-		yy += 100;
 	}
 }
 
@@ -863,6 +866,7 @@ int main()
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
 	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 6, "down");
+	bt.set_color(Graph_lib::Color::yellow);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
