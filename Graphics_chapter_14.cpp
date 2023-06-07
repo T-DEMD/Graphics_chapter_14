@@ -466,33 +466,10 @@ struct Binary_tree : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 protected:
-	Binary_tree(){}
+	Binary_tree() {}
 	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
 	virtual void draw_lines()const;
-	virtual void f_k(int k)const
-	{
-		if (s == "down")
-		{
-			int left = 2 * k;
-			int right = (2 * k) + 1;
-			// left arrow
-			fl_line(vp[k].x, vp[k].y + 10, vp[left].x, vp[left].y - 10);
-			fl_line(vp[left].x, vp[left].y - 10, vp[left].x + 5, vp[left].y - 25);
-			fl_line(vp[left].x, vp[left].y - 10, vp[left].x + 15, vp[left].y - 12);
-			// right arrow
-			fl_line(vp[k].x, vp[k].y + 10, vp[right].x, vp[right].y - 10);
-			fl_line(vp[right].x, vp[right].y - 10, vp[right].x - 5, vp[right].y - 15);
-			fl_line(vp[right].x, vp[right].y - 10, vp[right].x, vp[right].y - 25);
-		}
-		else
-		{
-			int left = 2 * k;
-			int right = (2 * k) + 1;
-			fl_line(vp[k].x, vp[k].y + 10, vp[left].x, vp[left].y - 10);
-			fl_line(vp[k].x, vp[k].y + 10, vp[right].x, vp[right].y - 10);
-		}
-	}
-	
+	virtual void f_k(int k)const;
 	virtual void draw_mark(string arrow)const;
 private:
 	int lev;
@@ -514,7 +491,7 @@ void Binary_tree::draw_lines() const
 			start = i;
 			end = i * 2;
 			midl = (start + end) / 2;
-			
+
 			for (int y = start; y <= end; y++)
 			{
 				if (midl < y)
@@ -530,6 +507,47 @@ void Binary_tree::draw_lines() const
 	}
 }
 
+// function for draw line or arrow
+// 
+void Binary_tree::f_k(int k) const
+{
+	{
+		if (s == "down")
+		{
+			int left = 2 * k;
+			int right = (2 * k) + 1;
+			// left arrow
+			fl_line(vp[k].x, vp[k].y + 10, vp[left].x, vp[left].y - 10);
+			fl_line(vp[left].x, vp[left].y - 10, vp[left].x + 5, vp[left].y - 25);
+			fl_line(vp[left].x, vp[left].y - 10, vp[left].x + 15, vp[left].y - 12);
+			// right arrow
+			fl_line(vp[k].x, vp[k].y + 10, vp[right].x, vp[right].y - 10);
+			fl_line(vp[right].x, vp[right].y - 10, vp[right].x - 5, vp[right].y - 15);
+			fl_line(vp[right].x, vp[right].y - 10, vp[right].x, vp[right].y - 25);
+		}
+		if (s == "up")
+		{
+			int left = 2 * k;
+			int right = (2 * k) + 1;
+			// left arrow
+			fl_line(vp[k].x - 5, vp[k].y + 10, vp[left].x, vp[left].y - 10);
+			fl_line(vp[k].x - 5, vp[k].y + 10, vp[k].x - 15, vp[k].y + 15);
+			fl_line(vp[k].x - 5, vp[k].y + 10, vp[k].x - 5, vp[k].y + 20);
+			// right arrow
+			fl_line(vp[k].x + 5, vp[k].y + 10, vp[right].x, vp[right].y - 10);
+			fl_line(vp[k].x + 5, vp[k].y + 10, vp[k].x + 15, vp[k].y + 15);
+			fl_line(vp[k].x + 5, vp[k].y + 10, vp[k].x + 5, vp[k].y + 20);
+		}
+		else
+		{
+			int left = 2 * k;
+			int right = (2 * k) + 1;
+			fl_line(vp[k].x, vp[k].y + 10, vp[left].x, vp[left].y - 10);
+			fl_line(vp[k].x, vp[k].y + 10, vp[right].x, vp[right].y - 10);
+		}
+	}
+}
+
 void Binary_tree::draw_mark(string aaa)const
 {
 	//
@@ -541,16 +559,31 @@ void Binary_tree::draw_mark(string aaa)const
 struct Binary_tree_from_triangle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
-	Binary_tree_from_triangle(Point p, int level);
+	Binary_tree_from_triangle(Point xy, int level);
+	Binary_tree_from_triangle(Point xy, int level, string arrow);
 	void draw_triangle() const;
 
 private:
 	int levels;
-	Point xy;
+	Point p;
 };
 
 // forced reduction levels and defining variables
-Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}, levels{level}
+Binary_tree_from_triangle::Binary_tree_from_triangle(Point xy, int level) : p{ xy }
+{
+	if (level > 6)
+	{
+		levels = 6;
+		draw_triangle();
+	}
+	else
+	{
+		levels = level;
+		draw_triangle();
+	}
+}
+
+Binary_tree_from_triangle::Binary_tree_from_triangle(Point xy, int level, string arrow) : Binary_tree(arrow), p{ xy }, levels{ level }
 {
 	if (level > 6)
 	{
@@ -575,8 +608,8 @@ void Binary_tree_from_triangle::draw_triangle() const
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new Triangle(Point{ xy.x + xx,xy.y + yy }));
-			vp.push_back(Point{ xy.x + xx, xy.y + yy + 20 });
+			figure2.push_back(new Triangle(Point{ p.x + xx,p.y + yy }));
+			vp.push_back(Point{ p.x + xx, p.y + yy + 20 });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -601,7 +634,7 @@ private:
 };
 
 // forced reduction levels and defining variables
-Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point xy, int level) : p{xy}
+Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point xy, int level) : p{ xy }
 {
 	if (level > 6)
 	{
@@ -615,7 +648,7 @@ Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point xy, int level) : p{
 	}
 }
 
-Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point xy, int level, string arrow) : Binary_tree(arrow), p{xy}, levels{level}
+Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point xy, int level, string arrow) : Binary_tree(arrow), p{ xy }, levels{ level }
 {
 	if (level > 6)
 	{
@@ -657,17 +690,32 @@ void Binary_tree_from_rectangle::draw_rectangle() const
 struct Binary_tree_from_cyrcle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
-	Binary_tree_from_cyrcle(Point p, int level);
+	Binary_tree_from_cyrcle(Point xy, int level);
+	Binary_tree_from_cyrcle(Point xy, int level, string arrow);
 	void draw_cyrcle() const;
 private:
 	int levels;
-	Point xy;
+	Point p;
 };
 
 // forced reduction levels and defining variables
-Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }
+Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point xy, int level) : p{ xy }
 {
-	if (level>6)
+	if (level > 6)
+	{
+		levels = 6;
+		draw_cyrcle();
+	}
+	else
+	{
+		levels = level;
+		draw_cyrcle();
+	}
+}
+
+Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point xy, int level, string arrow) : p{ xy }
+{
+	if (level > 6)
 	{
 		levels = 6;
 		draw_cyrcle();
@@ -690,8 +738,8 @@ void Binary_tree_from_cyrcle::draw_cyrcle() const
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new New_circle(Point{ xy.x + xx, xy.y + yy }, 10));
-			vp.push_back(Point{ xy.x + xx, xy.y + yy });
+			figure2.push_back(new New_circle(Point{ p.x + xx, p.y + yy }, 10));
+			vp.push_back(Point{ p.x + xx + 10, p.y + yy + 10 });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -814,7 +862,7 @@ int main()
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_rectangle bt(Point{ 400,50 }, 3, "down");
+	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 6, "down");
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
