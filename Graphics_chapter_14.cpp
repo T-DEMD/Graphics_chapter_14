@@ -484,7 +484,7 @@ protected:
 			fl_line(vp[right].x, vp[right].y - 10, vp[right].x - 5, vp[right].y - 15);
 			fl_line(vp[right].x, vp[right].y - 10, vp[right].x, vp[right].y - 25);
 		}
-		if (s == "up") // curve arrow
+		if (s == "up") // curve arrow 
 		{
 			int left = 2 * k;
 			int right = (2 * k) + 1;
