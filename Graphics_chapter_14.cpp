@@ -514,42 +514,39 @@ void Binary_tree::f_k(int k) const
 	int left = 2 * k;
 	int right = (2 * k) + 1;
 
-	fl_line(point(k).x, point(k).y, point(left).x, point(left).y);
-	fl_line(point(k).x, point(k).y, point(right).x, point(right).y);
-
-		//if (s == "down") // curve arrow
-		//{
-		//	int left = 2 * k;
-		//	int right = (2 * k) + 1;
-		//	// left arrow
-		//	fl_line(vp[k].x, vp[k].y + 10, vp[left].x, vp[left].y - 10);
-		//	fl_line(vp[left].x, vp[left].y - 10, vp[left].x + 5, vp[left].y - 25);
-		//	fl_line(vp[left].x, vp[left].y - 10, vp[left].x + 15, vp[left].y - 12);
-		//	// right arrow
-		//	fl_line(vp[k].x, vp[k].y + 10, vp[right].x, vp[right].y - 10);
-		//	fl_line(vp[right].x, vp[right].y - 10, vp[right].x - 5, vp[right].y - 15);
-		//	fl_line(vp[right].x, vp[right].y - 10, vp[right].x, vp[right].y - 25);
-		//}
-		//if (s == "up") // curve arrow 
-		//{
-		//	int left = 2 * k;
-		//	int right = (2 * k) + 1;
-		//	// left arrow
-		//	fl_line(vp[k].x - 5, vp[k].y + 10, vp[left].x, vp[left].y - 10);
-		//	fl_line(vp[k].x - 5, vp[k].y + 10, vp[k].x - 15, vp[k].y + 15);
-		//	fl_line(vp[k].x - 5, vp[k].y + 10, vp[k].x - 5, vp[k].y + 25);
-		//	// right arrow
-		//	fl_line(vp[k].x + 5, vp[k].y + 10, vp[right].x, vp[right].y - 10);
-		//	fl_line(vp[k].x + 5, vp[k].y + 10, vp[k].x + 10, vp[k].y + 15);
-		//	fl_line(vp[k].x + 5, vp[k].y + 10, vp[k].x + 5, vp[k].y + 25);
-		//}
-		//else
-		//{
-		//	int left = 2 * k;
-		//	int right = (2 * k) + 1;
-		//	fl_line(vp[k].x, vp[k].y + 10, vp[left].x, vp[left].y - 10);
-		//	fl_line(vp[k].x, vp[k].y + 10, vp[right].x, vp[right].y - 10);
-		//}
+	if (s == "down") // curve arrow
+	{
+		int left = 2 * k;
+		int right = (2 * k) + 1;
+		// left arrow
+		fl_line(point(k).x, point(k).y + 10, point(left).x, point(left).y - 10);
+		fl_line(point(left).x, point(left).y - 10, point(left).x + 5, point(left).y - 25);
+		fl_line(point(left).x, point(left).y - 10, point(left).x + 15, point(left).y - 12);
+		// right arrow
+		fl_line(point(k).x, point(k).y + 10, point(right).x, point(right).y - 10);
+		fl_line(point(right).x, point(right).y - 10, point(right).x - 5, point(right).y - 15);
+		fl_line(point(right).x, point(right).y - 10, point(right).x, point(right).y - 25);
+	}
+	if (s == "up") // curve arrow 
+	{
+		int left = 2 * k;
+		int right = (2 * k) + 1;
+		// left arrow
+		fl_line(point(k).x - 5, point(k).y + 10, point(left).x, point(left).y - 10);
+		fl_line(point(k).x - 5, point(k).y + 10, point(k).x - 15, point(k).y + 15);
+		fl_line(point(k).x - 5, point(k).y + 10, point(k).x - 5, point(k).y + 25);
+		// right arrow
+		fl_line(point(k).x + 5, point(k).y + 10, point(right).x, point(right).y - 10);
+		fl_line(point(k).x + 5, point(k).y + 10, point(k).x + 10, point(k).y + 15);
+		fl_line(point(k).x + 5, point(k).y + 10, point(k).x + 5, point(k).y + 25);
+	}
+	else
+	{
+		int left = 2 * k;
+		int right = (2 * k) + 1;
+		fl_line(point(k).x, point(k).y + 10, point(left).x, point(left).y - 10);
+		fl_line(point(k).x, point(k).y + 10, point(right).x, point(right).y - 10);
+	}
 }
 
 void Binary_tree::draw_mark(string node)const
@@ -559,12 +556,12 @@ void Binary_tree::draw_mark(string node)const
 
 //--------------------------------------------------------------------
 
-struct Binary_tree_from_triangle : private Binary_tree
+struct Binary_tree_from_triangle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
 	Binary_tree_from_triangle(Point p, int level);
-	void draw_triangle() const;
-	void add(Point p) { Binary_tree::add(p); }
+	void draw_triangle();
+
 private:
 	int levels;
 	Point xy;
@@ -585,19 +582,19 @@ Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}
 	}
 }
 
-void Binary_tree_from_triangle::draw_triangle() const
+void Binary_tree_from_triangle::draw_triangle()
 {
 	int xx = 0;
 	int yy = 100;
 	int n = 1;
-	vp.push_back(Point{ 0,0 });
+	add(Point{ 0,0 });
 	for (int l = 0; l < levels; l++)
 	{
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
 			figure2.push_back(new Triangle(Point{ xy.x + xx,xy.y + yy }));
-			vp.push_back(Point{ xy.x + xx, xy.y + yy + 20 });
+			add(Point{ xy.x + xx, xy.y + yy + 10 });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -612,17 +609,16 @@ void Binary_tree_from_triangle::draw_triangle() const
 struct Binary_tree_from_rectangle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
-	Binary_tree_from_rectangle(Point xy, int level);
-	Binary_tree_from_rectangle(Point xy, int level, string arrow);
+	Binary_tree_from_rectangle(Point p, int level);
+	Binary_tree_from_rectangle(Point p, int level, string arrow);
 	void draw_rectangle();
-	void add(Point p) { Shape::add(p); }
 private:
 	int levels;
-	Point p;
+	Point xy;
 };
 
 // forced reduction levels and defining variables
-Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point xy, int level) : p{xy}
+Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level) : xy{p}
 {
 	if (level > 6)
 	{
@@ -636,7 +632,7 @@ Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point xy, int level) : p{
 	}
 }
 
-Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point xy, int level, string arrow) : Binary_tree(arrow), p{xy}, levels{level}
+Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level, string arrow) : Binary_tree(arrow), xy{ p }, levels{level}
 {
 	if (level > 6)
 	{
@@ -661,9 +657,8 @@ void Binary_tree_from_rectangle::draw_rectangle()
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new Graph_lib::Rectangle(Point{ p.x + xx, p.y + yy }, 20, 20));	// test figure
-
-			add(Point{ p.x + xx + 10, p.y + yy + 10 });
+			figure2.push_back(new Graph_lib::Rectangle(Point{ xy.x + xx, xy.y + yy }, 20, 20));	// test figure
+			add(Point{ xy.x + xx + 10, xy.y + yy + 10 });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 			fl_line(100, 200, 200, 200);
@@ -680,13 +675,12 @@ struct Binary_tree_from_cyrcle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
 	Binary_tree_from_cyrcle(Point p, int level);
-	void draw_cyrcle() const;
+	void draw_cyrcle();
 private:
 	int levels;
 	Point xy;
 };
 
-// forced reduction levels and defining variables
 Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }
 {
 	if (level>6)
@@ -701,19 +695,19 @@ Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }
 	}
 }
 
-void Binary_tree_from_cyrcle::draw_cyrcle() const
+void Binary_tree_from_cyrcle::draw_cyrcle()
 {
 	int xx = 0;
 	int yy = 100;
 	int n = 1;
-	vp.push_back(Point{ 0,0 });
+	add(Point{ 0,0 });
 	for (int l = 0; l < levels; l++)
 	{
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
 			figure2.push_back(new New_circle(Point{ xy.x + xx, xy.y + yy }, 10));
-			vp.push_back(Point{ xy.x + xx, xy.y + yy });
+			add(Point{ xy.x + xx + 10, xy.y + yy + 10 });
 			figure2[figure2.size() - 1].set_color(8);
 			figure2[figure2.size() - 1].set_fill_color(7);
 		}
@@ -836,8 +830,8 @@ int main()
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_rectangle bt(Point{ 400,50 }, 3);
-	bt.set_color(Graph_lib::Color::red);
+	Binary_tree_from_rectangle bt(Point{ 400,50 }, 4);
+	bt.set_color(Graph_lib::Color::blue);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
