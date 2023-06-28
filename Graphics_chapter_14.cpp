@@ -492,18 +492,10 @@ void Binary_tree::draw_lines() const
 		{
 			start = i;
 			end = i * 2;
-			midl = (start + end) / 2;
 			
 			for (int y = start; y <= end; y++)
 			{
-				if (midl < y)
-				{
-					f_k(y);
-				}
-				else
-				{
-					f_k(y);
-				}
+				f_k(y);
 			}
 		}
 	}
@@ -511,9 +503,6 @@ void Binary_tree::draw_lines() const
 
 void Binary_tree::f_k(int k) const
 {
-	int left = 2 * k;
-	int right = (2 * k) + 1;
-
 	if (s == "down") // curve arrow
 	{
 		int left = 2 * k;
@@ -551,7 +540,23 @@ void Binary_tree::f_k(int k) const
 
 void Binary_tree::draw_mark(string node)const
 {
-	//
+	for (char ch : node)
+	{
+		int inerator = 0;
+		point(inerator);
+		if (ch != 'l' || ch != 'r')
+		{
+			//
+		}
+		if (ch == 'l')
+		{
+
+		}
+		if (ch == 'r')
+		{
+
+		}
+	}
 }
 
 //--------------------------------------------------------------------
