@@ -487,13 +487,11 @@ void Binary_tree::draw_lines() const
 	{
 		int start = 0;
 		int end = 0;
-		int midl = 0;
-		for (int i = 1; i < number_of_points(); i *= 2)
+		for (int i = 1; i < number_of_points() / 2; i *= 2)
 		{
 			start = i;
 			end = i * 2;
-			
-			for (int y = start; y <= end; y++)
+			for (int y = start; y < end; y++)
 			{
 				f_k(y);
 			}
