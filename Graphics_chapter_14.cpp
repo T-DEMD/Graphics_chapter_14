@@ -460,7 +460,6 @@ void Triangle::draw_lines()const
 //--------------------------------------------------------------------
 
 // vector for save node center point
-vector<Point> vp;
 
 Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
@@ -469,7 +468,7 @@ struct Binary_tree : Graph_lib::Shape
 	void add(Point p) { Shape::add(p); }
 protected:
 	Binary_tree(){}
-	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
+	Binary_tree(string arrow_up_down) :s{ arrow_up_down } { }
 	virtual void draw_lines()const;
 	virtual void f_k(int k)const;
 	virtual void draw_mark(string node)const;
@@ -487,12 +486,11 @@ void Binary_tree::draw_lines() const
 	{
 		int start = 0;
 		int end = 0;
-		int midl = 0;
-		for (int i = 1; i < number_of_points(); i *= 2)
+		int nop = number_of_points() / 2;
+		for (int i = 1; i < nop - 1; i *= 2)
 		{
 			start = i;
 			end = i * 2;
-			
 			for (int y = start; y <= end; y++)
 			{
 				f_k(y);
@@ -544,17 +542,21 @@ void Binary_tree::draw_mark(string node)const
 	{
 		int inerator = 0;
 		point(inerator);
-		if (ch != 'l' || ch != 'r')
-		{
-			//
-		}
-		if (ch == 'l')
+		for (int i = 1; i < number_of_points(); i*=2)
 		{
 
-		}
-		if (ch == 'r')
-		{
+			if (ch != 'l' || ch != 'r')
+			{
+				//
+			}
+			if (ch == 'l')
+			{
 
+			}
+			if (ch == 'r')
+			{
+
+			}
 		}
 	}
 }
@@ -835,8 +837,8 @@ int main()
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_rectangle bt(Point{ 400,50 }, 4);
-	bt.set_color(Graph_lib::Color::blue);
+	Binary_tree_from_triangle bt(Point{ 400,50 }, 5);
+	bt.set_color(Graph_lib::Color::black);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
