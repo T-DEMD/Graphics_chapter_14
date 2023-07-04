@@ -866,7 +866,7 @@ int main()
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_triangle bt(Point{ 400,50 }, 5, "up");
+	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 5);
 	bt.set_color(Graph_lib::Color::black);
 	for (int i = 0; i < figure2.size(); i++)
 	{
