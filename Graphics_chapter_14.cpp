@@ -486,12 +486,11 @@ void Binary_tree::draw_lines() const
 	{
 		int start = 0;
 		int end = 0;
-		int nop = number_of_points() / 2;
-		for (int i = 1; i < nop - 1; i *= 2)
+		for (int i = 1; i < number_of_points() / 2; i *= 2)
 		{
 			start = i;
 			end = i * 2;
-			for (int y = start; y <= end; y++)
+			for (int y = start; y < end; y++)
 			{
 				f_k(y);
 			}
@@ -567,6 +566,7 @@ struct Binary_tree_from_triangle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
 	Binary_tree_from_triangle(Point p, int level);
+	Binary_tree_from_triangle(Point p, int level, string arrow);
 	void draw_triangle();
 
 private:
@@ -576,6 +576,20 @@ private:
 
 // forced reduction levels and defining variables
 Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}, levels{level}
+{
+	if (level > 6)
+	{
+		levels = 6;
+		draw_triangle();
+	}
+	else
+	{
+		levels = level;
+		draw_triangle();
+	}
+}
+
+Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level, string arrow) : Binary_tree(arrow), xy{ p }, levels{ level }
 {
 	if (level > 6)
 	{
@@ -682,6 +696,7 @@ struct Binary_tree_from_cyrcle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
 	Binary_tree_from_cyrcle(Point p, int level);
+	Binary_tree_from_cyrcle(Point p, int level, string arrow);
 	void draw_cyrcle();
 private:
 	int levels;
@@ -691,6 +706,20 @@ private:
 Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }
 {
 	if (level>6)
+	{
+		levels = 6;
+		draw_cyrcle();
+	}
+	else
+	{
+		levels = level;
+		draw_cyrcle();
+	}
+}
+
+Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level, string arrow) : Binary_tree(arrow), xy{ p }, levels{ level }
+{
+	if (level > 6)
 	{
 		levels = 6;
 		draw_cyrcle();
@@ -837,7 +866,7 @@ int main()
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_triangle bt(Point{ 400,50 }, 5);
+	Binary_tree_from_triangle bt(Point{ 400,50 }, 5, "up");
 	bt.set_color(Graph_lib::Color::black);
 	for (int i = 0; i < figure2.size(); i++)
 	{
