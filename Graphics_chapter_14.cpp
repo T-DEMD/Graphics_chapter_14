@@ -867,7 +867,7 @@ int main()
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
 	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 5);
-	bt.set_color(Graph_lib::Color::black);
+	bt.set_color(Graph_lib::Color::blue);
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
