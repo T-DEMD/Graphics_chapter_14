@@ -460,6 +460,13 @@ void Triangle::draw_lines()const
 //--------------------------------------------------------------------
 
 // vector for save node center point
+void draw_mark(Point xy, char c)
+{
+	constexpr int dx = 20;
+	constexpr int dy = 5;
+	string m{ 1,c };
+	fl_draw(m.c_str(), xy.x - dx, xy.y + dy);
+}
 
 Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
@@ -471,12 +478,12 @@ protected:
 	Binary_tree(string arrow_up_down) :s{ arrow_up_down } { }
 	virtual void draw_lines()const;
 	virtual void f_k(int k)const;
-	virtual void draw_mark(string node)const;
+	virtual void draw_m()const;
 	
 private:
 	int lev;
 	string s;
-	string n;
+	string n = "djhij";
 };
 
 // function for draw branches
@@ -496,6 +503,8 @@ void Binary_tree::draw_lines() const
 			}
 		}
 	}
+
+	draw_m();
 }
 
 void Binary_tree::f_k(int k) const
@@ -535,28 +544,11 @@ void Binary_tree::f_k(int k) const
 	}
 }
 
-void Binary_tree::draw_mark(string node)const
+void Binary_tree::draw_m()const
 {
-	for (char ch : node)
+	for (int i = 0; i < number_of_points(); i++)
 	{
-		int inerator = 0;
-		point(inerator);
-		for (int i = 1; i < number_of_points(); i*=2)
-		{
-
-			if (ch != 'l' || ch != 'r')
-			{
-				//
-			}
-			if (ch == 'l')
-			{
-
-			}
-			if (ch == 'r')
-			{
-
-			}
-		}
+		draw_mark(point(i), n[i % n.size()]);
 	}
 }
 
