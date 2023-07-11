@@ -462,7 +462,7 @@ void Triangle::draw_lines()const
 // vector for save node center point
 void draw_mark(Point xy, char c)
 {
-	constexpr int dx = 20;
+	constexpr int dx = 22;
 	constexpr int dy = 5;
 	string m{ 1,c };
 	fl_draw(m.c_str(), xy.x - dx, xy.y + dy);
@@ -473,17 +473,17 @@ struct Binary_tree : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 	void add(Point p) { Shape::add(p); }
+	void mark(string marks) { lab = marks; }
 protected:
 	Binary_tree(){}
-	Binary_tree(string arrow_up_down) :s{ arrow_up_down } { }
+	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
 	virtual void draw_lines()const;
 	virtual void f_k(int k)const;
-	virtual void draw_m()const;
-	
+	virtual void sort_marks()const;
 private:
 	int lev;
 	string s;
-	string n = "djhij";
+	string lab;
 };
 
 // function for draw branches
@@ -503,8 +503,7 @@ void Binary_tree::draw_lines() const
 			}
 		}
 	}
-
-	draw_m();
+	sort_marks();
 }
 
 void Binary_tree::f_k(int k) const
@@ -544,11 +543,12 @@ void Binary_tree::f_k(int k) const
 	}
 }
 
-void Binary_tree::draw_m()const
+void Binary_tree::sort_marks()const
 {
 	for (int i = 0; i < number_of_points(); i++)
 	{
-		draw_mark(point(i), n[i % n.size()]);
+		fl_color(0);
+		draw_mark(point(i), lab[i % lab.size()]);
 	}
 }
 
@@ -560,7 +560,6 @@ struct Binary_tree_from_triangle : Binary_tree
 	Binary_tree_from_triangle(Point p, int level);
 	Binary_tree_from_triangle(Point p, int level, string arrow);
 	void draw_triangle();
-
 private:
 	int levels;
 	Point xy;
@@ -860,6 +859,7 @@ int main()
 
 	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 5);
 	bt.set_color(Graph_lib::Color::blue);
+	bt.Binary_tree::mark("rghdrohd");
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
