@@ -545,10 +545,23 @@ void Binary_tree::f_k(int k) const
 
 void Binary_tree::sort_marks()const
 {
-	for (int i = 0; i < number_of_points(); i++)
+	int j = 1;
+	int start = 0;
+	int end = 0;
+	for (int i = 1; i <= lab.size(); i++)
 	{
 		fl_color(0);
-		draw_mark(point(i), lab[i % lab.size()]);
+		if (lab[i % lab.size()] == 'l')
+		{
+			draw_mark(point(j * 2), lab[i % lab.size()]);
+			j *= 2;
+		}
+		else if (lab[i % lab.size()] == 'r')
+		{
+			draw_mark(point(j * 2 + 1), lab[i % lab.size()]);
+			j *= 2;
+		}
+		j = i;
 	}
 }
 
@@ -857,9 +870,9 @@ int main()
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 5);
+	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 7);
 	bt.set_color(Graph_lib::Color::blue);
-	bt.Binary_tree::mark("rghdrohd");
+	bt.Binary_tree::mark("lrrllrrlr");
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
