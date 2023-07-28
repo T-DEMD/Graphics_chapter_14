@@ -474,12 +474,15 @@ struct Binary_tree : Graph_lib::Shape
 	using Graph_lib::Shape::Shape;
 	void add(Point p) { Shape::add(p); }
 	void mark(string marks) { lab = marks; }
+	virtual void set_level(int level) { lev = level; }
+	virtual int get_level() { return lev; }
 protected:
 	Binary_tree(){}
 	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
 	virtual void draw_lines()const;
 	virtual void f_k(int k)const;
 	virtual void sort_marks()const;
+	
 private:
 	int lev;
 	string s;
@@ -548,7 +551,7 @@ void Binary_tree::sort_marks()const
 	int j = 1;
 	int start = 0;
 	int end = 0;
-	for (int i = 1; i <= lab.size(); i++)
+	for (int i = 1; i <= lev; i++)
 	{
 		fl_color(0);
 		if (lab[i % lab.size()] == 'l')
@@ -584,11 +587,13 @@ Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{p}
 	if (level > 6)
 	{
 		levels = 6;
+		Binary_tree::set_level(levels);
 		draw_triangle();
 	}
 	else
 	{
 		levels = level;
+		Binary_tree::set_level(levels);
 		draw_triangle();
 	}
 }
@@ -598,11 +603,13 @@ Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level, string 
 	if (level > 6)
 	{
 		levels = 6;
+		Binary_tree::set_level(levels);
 		draw_triangle();
 	}
 	else
 	{
 		levels = level;
+		Binary_tree::set_level(levels);
 		draw_triangle();
 	}
 }
@@ -648,11 +655,13 @@ Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level) : xy{
 	if (level > 6)
 	{
 		levels = 6;
+		Binary_tree::set_level(levels);
 		draw_rectangle();
 	}
 	else
 	{
 		levels = level;
+		Binary_tree::set_level(levels);
 		draw_rectangle();
 	}
 }
@@ -662,11 +671,13 @@ Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level, strin
 	if (level > 6)
 	{
 		levels = 6;
+		Binary_tree::set_level(levels);
 		draw_rectangle();
 	}
 	else
 	{
 		levels = level;
+		Binary_tree::set_level(levels);
 		draw_rectangle();
 	}
 }
@@ -712,11 +723,13 @@ Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }
 	if (level>6)
 	{
 		levels = 6;
+		Binary_tree::set_level(levels);
 		draw_cyrcle();
 	}
 	else
 	{
 		levels = level;
+		Binary_tree::set_level(levels);
 		draw_cyrcle();
 	}
 }
@@ -726,11 +739,13 @@ Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level, string arro
 	if (level > 6)
 	{
 		levels = 6;
+		Binary_tree::set_level(levels);
 		draw_cyrcle();
 	}
 	else
 	{
 		levels = level;
+		Binary_tree::set_level(levels);
 		draw_cyrcle();
 	}
 }
@@ -870,9 +885,9 @@ int main()
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 7);
+	Binary_tree_from_cyrcle bt(Point{ 400,50 }, 5);
 	bt.set_color(Graph_lib::Color::blue);
-	bt.Binary_tree::mark("lrrllrrlr");
+	bt.Binary_tree::mark("lrrllrlrlrrrrlrllllrrlr");
 	for (int i = 0; i < figure2.size(); i++)
 	{
 		win3.attach(figure2[i]);
