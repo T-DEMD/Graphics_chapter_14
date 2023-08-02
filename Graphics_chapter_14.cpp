@@ -481,7 +481,7 @@ protected:
 	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
 	virtual void draw_lines()const;
 	virtual void f_k(int k)const;
-	virtual void sort_marks()const;
+	virtual void function_marks_left_or_right_node()const;
 	
 private:
 	int lev;
@@ -506,7 +506,7 @@ void Binary_tree::draw_lines() const
 			}
 		}
 	}
-	sort_marks();
+	function_marks_left_or_right_node();
 }
 
 void Binary_tree::f_k(int k) const
@@ -546,25 +546,29 @@ void Binary_tree::f_k(int k) const
 	}
 }
 
-void Binary_tree::sort_marks()const
+void Binary_tree::function_marks_left_or_right_node()const
 {
 	int j = 1;
-	int start = 0;
-	int end = 0;
+	int left = 0;
+	int right = 0;
+	draw_mark(point(1), 'R'); // root node
 	for (int i = 1; i <= lev; i++)
 	{
 		fl_color(0);
-		if (lab[i % lab.size()] == 'l')
+		left = i;
+		right = i * 2;
+
+		for (int y = left; y < right; y++)
 		{
-			draw_mark(point(j * 2), lab[i % lab.size()]);
-			j *= 2;
+			if (lab[i % lab.size()] == 'l')
+			{
+				draw_mark(point(j * 2), lab[i % lab.size()]);
+			}
+			else if (lab[i % lab.size()] == 'r')
+			{
+				draw_mark(point(j * 2 + 1), lab[i % lab.size()]);
+			}
 		}
-		else if (lab[i % lab.size()] == 'r')
-		{
-			draw_mark(point(j * 2 + 1), lab[i % lab.size()]);
-			j *= 2;
-		}
-		j = i;
 	}
 }
 
