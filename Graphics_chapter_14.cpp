@@ -548,26 +548,23 @@ void Binary_tree::f_k(int k) const
 
 void Binary_tree::function_marks_left_or_right_node()const
 {
-	int j = 1;
-	int left = 0;
-	int right = 0;
 	draw_mark(point(1), 'R'); // root node
-	for (int i = 1; i <= lev; i++)
+	int j = 1;
+	for (int i = 1; i < number_of_points()/2;)
 	{
 		fl_color(0);
-		left = i;
-		right = i * 2;
 
-		for (int y = left; y < right; y++)
+		if (lab[i % lab.size()] == 'l')
 		{
-			if (lab[i % lab.size()] == 'l')
-			{
-				draw_mark(point(j * 2), lab[i % lab.size()]);
-			}
-			else if (lab[i % lab.size()] == 'r')
-			{
-				draw_mark(point(j * 2 + 1), lab[i % lab.size()]);
-			}
+			i *= 2;
+			i += 1;
+			draw_mark(point(i), lab[i% lab.size()]);
+		}
+		else if (lab[i % lab.size()] == 'r')
+		{
+			i *= 2;
+			i += 2;
+			draw_mark(point(i), lab[i% lab.size()]);
 		}
 	}
 }
