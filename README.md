@@ -24,11 +24,11 @@ ___
 
 Create Binary tree class. Draw tree, node.
 
-![Binary_tree](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree.png)
+![Binary_tree](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree.jpg)
 ___
 
 Added mark for Binary tree.
 
-![Binary tree mark](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree_mark.png)
+![Binary tree mark](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree_mark.jpg)
 
 ...in progress
