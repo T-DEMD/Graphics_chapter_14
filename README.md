@@ -29,6 +29,6 @@ ___
 
 Added mark for Binary tree.
 
-![Binary tree mark](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree_mark.jpg)
+![Binary tree mark](https://github.com/T-DEMD/Graphics_chapter_14/blob/q/Binary_tree_mark.jpg)
 
 ...in progress
