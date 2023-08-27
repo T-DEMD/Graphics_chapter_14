@@ -1,6 +1,6 @@
 # Chapter 14
 ## *Programming - Principles and Practice Using C++*	Bjarne Stroustrup
-### Solved: 1, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14
+### Solved: 1, 4, 5, 6, 8, 9, 10, 11
 #### For graphics using FLTK (Fast Light Toolkit), is a cross-platform widget.
 ___
 
@@ -22,6 +22,13 @@ We describe template for class Group. Сan be created unnamed and named vectors.
 
 ___
 
-![Binary_tree](https://raw.githubusercontent.com/T-DEMD/Graphics_chapter_14/a6dbe25243433ecef9b3d6c9b43f01d24eaad2bf/Binary_tree.jpg)
+Create Binary tree class. Draw tree, node.
+
+![Binary_tree](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree.png)
+___
+
+Added mark for Binary tree.
+
+![Binary tree mark](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree_mark.png)
 
 ...in progress
