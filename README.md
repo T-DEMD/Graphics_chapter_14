@@ -24,7 +24,7 @@ ___
 
 Create Binary tree class. Draw tree, node.
 
-![Binary_tree](https://github.com/T-DEMD/Graphics_chapter_14/blob/master/Binary_tree.jpg)
+![Binary_tree](https://github.com/T-DEMD/Graphics_chapter_14/blob/q/Binary_tree.jpg)
 ___
 
 Added mark for Binary tree.
