@@ -1,6 +1,6 @@
 # Chapter 14
 ## *Programming - Principles and Practice Using C++*	Bjarne Stroustrup
-### Solved: 1, 4, 5, 6, 8, 9, 10, 11
+### Solved: 1, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14
 #### For graphics using FLTK (Fast Light Toolkit), is a cross-platform widget.
 ___
 
