@@ -78,11 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\mkhit\OneDrive\Документы\fltk-1.3.5\build\lib\Debug;C:\Users\mkhit\OneDrive\Документы\fltk-1.3.8\build\lib\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>S:\FLTK\fltk-1.3.8\build\lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>C:\Users\mkhit\OneDrive\Документы\fltk-1.3.5\build\lib\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>S:\FLTK\fltk-1.3.8\build\lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\mkhit\OneDrive\Документы\fltk-1.3.5;C:\Users\mkhit\OneDrive\Документы\fltk-1.3.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>S:\FLTK\fltk-1.3.8</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,30 +134,30 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\mkhit\OneDrive\Документы\fltk-1.3.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>S:\FLTK\fltk-1.3.8</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>fltkd.lib;wsock32.lib;comctl32.lib;fltk_jpeg.lib;fltk_images.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fltk.lib;wsock32.lib;comctl32.lib;fltk_jpeg.lib;fltk_images.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Graph.cpp" />
-    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\GUI.cpp" />
-    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Simple_window.cpp" />
-    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Window.cpp" />
+    <ClCompile Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Graph.cpp" />
+    <ClCompile Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\GUI.cpp" />
+    <ClCompile Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Simple_window.cpp" />
+    <ClCompile Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Window.cpp" />
     <ClCompile Include="Graphics_chapter_14.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Graph.h" />
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\GUI.h" />
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Point.h" />
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Simple_window.h" />
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Window.h" />
-    <ClInclude Include="..\..\..\Документы\fltk_gui\std_lib_facilities.h" />
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Graph.h" />
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\GUI.h" />
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Point.h" />
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Simple_window.h" />
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Window.h" />
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\std_lib_facilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

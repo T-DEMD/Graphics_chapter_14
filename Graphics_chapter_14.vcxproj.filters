@@ -18,36 +18,36 @@
     <ClCompile Include="Graphics_chapter_14.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Graph.cpp">
+    <ClCompile Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Graph.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\GUI.cpp">
+    <ClCompile Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\GUI.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Simple_window.cpp">
+    <ClCompile Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Simple_window.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Документы\fltk_gui\GUI\Window.cpp">
+    <ClCompile Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Window.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Документы\fltk_gui\std_lib_facilities.h">
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\std_lib_facilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Graph.h">
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Graph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\GUI.h">
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\GUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Point.h">
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Simple_window.h">
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Simple_window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Документы\fltk_gui\GUI\Window.h">
+    <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

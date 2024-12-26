@@ -1,5 +1,5 @@
-﻿#include "C:\Users\mkhit\OneDrive\Документы\fltk_gui\GUI\Simple_window.h" // get access to our window library
-#include "C:\Users\mkhit\OneDrive\Документы\fltk_gui\GUI\Graph.h" // get access to our graphics library facilities
+﻿#include "C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Simple_window.h" // get access to our window library
+#include "C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Graph.h" // get access to our graphics library facilities
 
 // Chapter 14.
 // Solved: 1, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14
@@ -30,6 +30,7 @@ private:
 
 New_circle::New_circle(Point xy, int radius) : r{ radius }
 {
+	if (xy.x <= 0 || xy.y <= 0 || radius < 0) throw exception();
 	add(xy);
 }
 
@@ -241,7 +242,8 @@ void Octagon::add_f()
 	h.x = _xy.x - r;
 	h.y = _xy.y + t / 2;
 
-	// add corners octagon for draw sides (lines) 
+	// add corners octagon for draw sides (lines)
+	// Нужно внести изменения следующего характера: добавить только одну точку - add(a) и от него отрисовать остальные линии.
 	Shape::add(a);
 	Shape::add(b);
 	Shape::add(b);
@@ -260,9 +262,8 @@ void Octagon::add_f()
 	Shape::add(a);
 }
 
-void Octagon::draw_lines() const
+void Octagon::draw_lines() const // filling in a polyhedron shape using the fltk library
 {
-	Shape::draw_lines();
 	if (fill_color().visibility())
 	{
 		for (int i = 1; i < number_of_points(); i += 2)
@@ -771,7 +772,16 @@ void Binary_tree_from_cyrcle::draw_cyrcle()
 	}
 }
 
-int main()
+class Controller
+{
+	virtual void off();
+	virtual void on();
+	virtual void set_level(int);
+	virtual void show();
+};
+
+
+int main() try
 {
 	Point tl(10, 10);
 	Simple_window win(tl, 1200, 800, "Canvas");
@@ -894,4 +904,8 @@ int main()
 	win3.attach(bt);
 
 	win3.wait_for_button();
+}
+catch (const std::exception&)
+{
+	cout << "Not a positive argument for invoking graphical objects";
 }
