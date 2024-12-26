@@ -2,8 +2,8 @@
 #include "C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Graph.h" // get access to our graphics library facilities
 
 // Chapter 14.
-// Solved: 1, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14
-// Not solvet: 2, 3, 7 (postponed).
+// Solved: 1, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14.
+// Not solved: 2, 3, 7 (postponed).
 //--------------------------------------------------------------------
 
 struct New_circle : Graph_lib::Shape
@@ -243,7 +243,9 @@ void Octagon::add_f()
 	h.y = _xy.y + t / 2;
 
 	// add corners octagon for draw sides (lines)
+	// You need to make the following changes: add only one point - add(a) and draw the rest of the lines from it.
 	// Нужно внести изменения следующего характера: добавить только одну точку - add(a) и от него отрисовать остальные линии.
+
 	Shape::add(a);
 	Shape::add(b);
 	Shape::add(b);
@@ -772,13 +774,13 @@ void Binary_tree_from_cyrcle::draw_cyrcle()
 	}
 }
 
-class Controller
-{
-	virtual void off();
-	virtual void on();
-	virtual void set_level(int);
-	virtual void show();
-};
+//class Controller 
+//{
+//	virtual void off();
+//	virtual void on();
+//	virtual void set_level(int);
+//	virtual void show();
+//};
 
 
 int main() try
