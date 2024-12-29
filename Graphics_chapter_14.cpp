@@ -353,6 +353,32 @@ Point Chess::get_point() const
 	return p;
 }
 
+void get_chess(Chess& obj) 
+{
+	Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
+	Graph_lib::Marks mrk1{ "8765432112345678" };
+	for (int i = 0; i < 8; i++)
+	{
+		Point x(obj.get_point().x + i * obj.get_square() + 15, obj.get_point().y + 250); // corrected 250 -> int x
+		mrk.add(x);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		Point x(obj.get_point().x + i * obj.get_square() + 15, obj.get_point().y - 10); // corrected 15, 10 -> %...
+		mrk.add(x);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		Point x(obj.get_point().x - 15, obj.get_point().y + i * obj.get_square() + 15);
+		mrk1.add(x);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		Point x(obj.get_point().x + 250, obj.get_point().y + i * obj.get_square() + 15);
+		mrk1.add(x);
+	}
+}
+
 //--------------------------------------------------------------------
 // Pseudo window class
 
@@ -860,32 +886,11 @@ int main() try
 	win2.attach(ps);
 
 	Chess ch(Point{ 400,200 }, 30);
-	Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
-	Graph_lib::Marks mrk1{ "8765432112345678" };
 
-	for (int i = 0; i < 8; i++)
-	{
-		Point x(ch.get_point().x + i * ch.get_square() + 15, ch.get_point().y + 250); // corrected 250 -> int x
-		mrk.add(x);
-	}
-	for (int i = 0; i < 8; i++)
-	{
-		Point x(ch.get_point().x + i * ch.get_square() + 15, ch.get_point().y - 10); // corrected 15, 10 -> %...
-		mrk.add(x);
-	}
-	for (int i = 0; i < 8; i++)
-	{
-		Point x(ch.get_point().x - 15, ch.get_point().y + i * ch.get_square() + 15);
-		mrk1.add(x);
-	}
-	for (int i = 0; i < 8; i++)
-	{
-		Point x(ch.get_point().x + 250, ch.get_point().y + i * ch.get_square() + 15);
-		mrk1.add(x);
-	}
+	get_chess(ch);
 
-	win2.attach(mrk);
-	win2.attach(mrk1);
+/*	win2.attach(mrk);
+	win2.attach(mrk1)*/;
 
 	for (int i = 0; i < figure.size(); i++)
 	{
