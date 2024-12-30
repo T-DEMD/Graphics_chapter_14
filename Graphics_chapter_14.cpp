@@ -503,8 +503,8 @@ Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
-	void add(Point p) { Shape::add(p); }
-	void mark(string marks) { lab = marks; }
+	virtual void add(Point p) { Shape::add(p); }
+	virtual void mark(string marks) { lab = marks; }
 protected:
 	Binary_tree() {}
 	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
@@ -614,9 +614,9 @@ private:
 // forced reduction levels and defining variables
 Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{ p }, levels{ level }
 {
-	if (level > 6)
+	if (level > 9)
 	{
-		levels = 6;
+		levels = 9;
 		Binary_tree::set_level(levels);
 		draw_triangle();
 	}
@@ -630,9 +630,9 @@ Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{ p
 
 Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level, string arrow) : Binary_tree(arrow), xy{ p }, levels{ level }
 {
-	if (level > 6)
+	if (level > 9)
 	{
-		levels = 6;
+		levels = 9;
 		Binary_tree::set_level(levels);
 		draw_triangle();
 	}
@@ -682,9 +682,9 @@ private:
 // forced reduction levels and defining variables
 Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level) : xy{ p }
 {
-	if (level > 6)
+	if (level > 9)
 	{
-		levels = 6;
+		levels = 9;
 		Binary_tree::set_level(levels);
 		draw_rectangle();
 	}
@@ -696,11 +696,12 @@ Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level) : xy{
 	}
 }
 
+// not done
 Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level, string arrow) : Binary_tree(arrow), xy{ p }, levels{ level }
 {
-	if (level > 6)
+	if (level > 9)
 	{
-		levels = 6;
+		levels = 9;
 		Binary_tree::set_level(levels);
 		draw_rectangle();
 	}
@@ -903,7 +904,7 @@ int main() try
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_rectangle bt(Point{ 450,50 }, 8);
+	Binary_tree_from_rectangle bt(Point{ 450,50 }, 9, "arrow");
 	bt.set_color(Graph_lib::Color::blue);
 	bt.Binary_tree::mark("rllrrlrr");
 	for (int i = 0; i < figure2.size(); i++)
