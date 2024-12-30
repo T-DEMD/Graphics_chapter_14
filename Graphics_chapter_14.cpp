@@ -291,7 +291,7 @@ template<class T> class Group
 	vector<T*> owned;
 public:
 	Group() {};
-	/*Group(T* a, T* b = 0, T* c = 0, T* d = 0);*/
+	Group(T* a, T* b = 0, T* c = 0, T* d = 0);
 	~Group() { for (int i = 0; i < owned.size(); i++)delete owned[i]; }
 	void push_back(T& s) { v.push_back(&s); }
 	void push_back(T* p) { v.push_back(p); owned.push_back(p); }
@@ -353,10 +353,12 @@ Point Chess::get_point() const
 	return p;
 }
 
+Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
+Graph_lib::Marks mrk1{ "8765432112345678" };
+
 void get_chess(Chess& obj) 
 {
-	Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
-	Graph_lib::Marks mrk1{ "8765432112345678" };
+	
 	for (int i = 0; i < 8; i++)
 	{
 		Point x(obj.get_point().x + i * obj.get_square() + 15, obj.get_point().y + 250); // corrected 250 -> int x
@@ -889,8 +891,8 @@ int main() try
 
 	get_chess(ch);
 
-/*	win2.attach(mrk);
-	win2.attach(mrk1)*/;
+	win2.attach(mrk);
+	win2.attach(mrk1);
 
 	for (int i = 0; i < figure.size(); i++)
 	{
