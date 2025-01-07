@@ -14,6 +14,7 @@ struct New_circle : Graph_lib::Shape
 
 	void set_radius(int rad)
 	{
+		if (r <= 0) throw exception();
 		r = rad;
 	}
 
@@ -30,7 +31,7 @@ private:
 
 New_circle::New_circle(Point xy, int radius) : r{ radius }
 {
-	if (xy.x <= 0 || xy.y <= 0 || radius < 0) throw exception();
+	if (xy.x <= 0 || xy.y <= 0 || radius <= 0) throw exception();
 	add(xy);
 }
 
@@ -205,7 +206,14 @@ struct Octagon : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 
-	Octagon(Point xy, int rad) : r{ rad }, _xy{ xy } { add_f(); }
+	Octagon(Point xy, int rad) : r{ rad }, _xy{ xy } 
+	{
+		if (rad <= 0) 
+		{ 
+			throw exception();
+		} 
+		add_f();
+	}
 
 	int radius() { return r; }
 	void draw_lines() const;
@@ -308,7 +316,15 @@ class Chess : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 public:
-	Chess(Point xy, int square) : p{ xy }, s{ square } { draw_chess_board(); }
+	Chess(Point xy, int square) : p{ xy }, s{ square }
+	{
+		if (square <= 0)
+		{
+			throw exception();
+		}
+		draw_chess_board();
+	}
+	
 	Point get_point() const;
 	void draw_chess_board();
 	int get_square() const { return s; }
@@ -406,7 +422,7 @@ Pseudo_window::Pseudo_window(Point xy, int ww, int hh) : w{ ww }, h{ hh }, xyz{ 
 {
 	if (h <= 0 || w <= 0)
 	{
-		error("error: ");
+		throw exception();
 	}
 	new_box();
 }
@@ -415,7 +431,7 @@ Pseudo_window::Pseudo_window(Point x, Point y) : w{ y.x - x.x }, h{ y.y - x.y }
 {
 	if (h <= 0 || w <= 0)
 	{
-		error("error: ");
+		throw exception();
 	}
 	new_box();
 }
@@ -904,7 +920,7 @@ int main() try
 
 	Simple_window win3(tl, 1400, 800, "Binary_tree");
 
-	Binary_tree_from_rectangle bt(Point{ 450,50 }, 9, "arrow");
+	Binary_tree_from_rectangle bt(Point{ 450,50 }, 9);
 	bt.set_color(Graph_lib::Color::blue);
 	bt.Binary_tree::mark("rllrrlrr");
 	for (int i = 0; i < figure2.size(); i++)
