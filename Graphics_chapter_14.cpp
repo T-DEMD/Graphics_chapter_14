@@ -570,7 +570,7 @@ void Binary_tree::f_k(int k) const
 		fl_line(point(right).x, point(right).y - 10, point(right).x - 5, point(right).y - 15);
 		fl_line(point(right).x, point(right).y - 10, point(right).x, point(right).y - 25);
 	}
-	if (s == "up") // curve arrow 
+	else if (s == "up") // curve arrow
 	{
 		int left = 2 * k;
 		int right = (2 * k) + 1;
@@ -600,7 +600,7 @@ void Binary_tree::sort_marks()const
 	for (int i = 0; i < lev - 1; i++)
 	{
 		fl_color(0);
-		if (lab[i % lab.size()] == 'l')
+		if (lab[i % lab.size()] == 'l') // rewrite to switch
 		{
 			iter *= 2;
 			draw_mark(point(iter), lab[i % lab.size()]);
