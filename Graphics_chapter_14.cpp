@@ -515,7 +515,6 @@ void draw_mark(Point xy, char c)
 	fl_draw(m.c_str(), xy.x - dx, xy.y + dy);
 }
 
-Group<Graph_lib::Shape> figure2;
 struct Binary_tree : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
@@ -616,6 +615,7 @@ void Binary_tree::sort_marks()const
 
 //--------------------------------------------------------------------
 
+Group<Graph_lib::Shape> triangle_shape;
 struct Binary_tree_from_triangle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
@@ -671,10 +671,10 @@ void Binary_tree_from_triangle::draw_triangle()
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new Triangle(Point{ xy.x + xx,xy.y + yy }));
+			triangle_shape.push_back(new Triangle(Point{ xy.x + xx,xy.y + yy }));
 			add(Point{ xy.x + xx, xy.y + yy + 10 });
-			figure2[figure2.size() - 1].set_color(8);
-			figure2[figure2.size() - 1].set_fill_color(7);
+			triangle_shape[triangle_shape.size() - 1].set_color(8);
+			triangle_shape[triangle_shape.size() - 1].set_fill_color(7);
 		}
 		n *= 2;
 		xx -= (75 * n);
@@ -684,6 +684,7 @@ void Binary_tree_from_triangle::draw_triangle()
 
 //--------------------------------------------------------------------
 
+Group<Graph_lib::Shape> rectangle_shape;
 struct Binary_tree_from_rectangle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
@@ -740,10 +741,10 @@ void Binary_tree_from_rectangle::draw_rectangle()
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new Graph_lib::Rectangle(Point{ xy.x + xx, xy.y + yy }, 20, 20));	// test figure
+			rectangle_shape.push_back(new Graph_lib::Rectangle(Point{ xy.x + xx, xy.y + yy }, 20, 20));	// test figure
 			add(Point{ xy.x + xx + 10, xy.y + yy + 10 });
-			figure2[figure2.size() - 1].set_color(8);
-			figure2[figure2.size() - 1].set_fill_color(7);
+			rectangle_shape[rectangle_shape.size() - 1].set_color(8);
+			rectangle_shape[rectangle_shape.size() - 1].set_fill_color(7);
 			fl_line(100, 200, 200, 200);
 		}
 		n *= 2;
@@ -754,50 +755,51 @@ void Binary_tree_from_rectangle::draw_rectangle()
 
 //--------------------------------------------------------------------
 
-struct Binary_tree_from_cyrcle : Binary_tree
+Group<Graph_lib::Shape> circle_shape;
+struct Binary_tree_from_circle : Binary_tree
 {
 	using Binary_tree::Binary_tree;
-	Binary_tree_from_cyrcle(Point p, int level);
-	Binary_tree_from_cyrcle(Point p, int level, string arrow);
-	void draw_cyrcle();
+	Binary_tree_from_circle(Point p, int level);
+	Binary_tree_from_circle(Point p, int level, string arrow);
+	void draw_circle();
 private:
 	int levels;
 	Point xy;
 };
 
-Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level) : xy{ p }
+Binary_tree_from_circle::Binary_tree_from_circle(Point p, int level) : xy{ p }
 {
 	if (level > 6)
 	{
 		levels = 6;
 		Binary_tree::set_level(levels);
-		draw_cyrcle();
+		draw_circle();
 	}
 	else
 	{
 		levels = level;
 		Binary_tree::set_level(levels);
-		draw_cyrcle();
+		draw_circle();
 	}
 }
 
-Binary_tree_from_cyrcle::Binary_tree_from_cyrcle(Point p, int level, string arrow) : Binary_tree(arrow), xy{ p }, levels{ level }
+Binary_tree_from_circle::Binary_tree_from_circle(Point p, int level, string arrow) : Binary_tree(arrow), xy{ p }, levels{ level }
 {
 	if (level > 6)
 	{
 		levels = 6;
 		Binary_tree::set_level(levels);
-		draw_cyrcle();
+		draw_circle();
 	}
 	else
 	{
 		levels = level;
 		Binary_tree::set_level(levels);
-		draw_cyrcle();
+		draw_circle();
 	}
 }
 
-void Binary_tree_from_cyrcle::draw_cyrcle()
+void Binary_tree_from_circle::draw_circle()
 {
 	int xx = 0;
 	int yy = 100;
@@ -808,10 +810,10 @@ void Binary_tree_from_cyrcle::draw_cyrcle()
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			figure2.push_back(new New_circle(Point{ xy.x + xx, xy.y + yy }, 10));
+			circle_shape.push_back(new New_circle(Point{ xy.x + xx, xy.y + yy }, 10));
 			add(Point{ xy.x + xx + 10, xy.y + yy + 10 });
-			figure2[figure2.size() - 1].set_color(8);
-			figure2[figure2.size() - 1].set_fill_color(7);
+			circle_shape[circle_shape.size() - 1].set_color(8);
+			circle_shape[circle_shape.size() - 1].set_fill_color(7);
 		}
 		n *= 2;
 		xx -= (75 * n);
@@ -826,7 +828,6 @@ void Binary_tree_from_cyrcle::draw_cyrcle()
 //	virtual void set_level(int);
 //	virtual void show();
 //};
-
 
 int main() try
 {
@@ -918,20 +919,45 @@ int main() try
 
 	win2.wait_for_button();
 
-	Simple_window win3(tl, 1400, 800, "Binary_tree");
+	Simple_window win3(tl, 1400, 800, "Binary tree for rectangle.");
 
 	Binary_tree_from_rectangle bt(Point{ 450,50 }, 9);
 	bt.set_color(Graph_lib::Color::blue);
 	bt.Binary_tree::mark("rllrrlrr");
-	for (int i = 0; i < figure2.size(); i++)
+	for (int i = 0; i < rectangle_shape.size(); i++)
 	{
-		win3.attach(figure2[i]);
+		win3.attach(rectangle_shape[i]);
 	}
 	win3.attach(bt);
 
 	win3.wait_for_button();
+
+	Simple_window win4(tl, 1400, 800, "Binary tree for triangle.");
+
+	Binary_tree_from_triangle bttri(Point{ 300,50 }, 5);
+	bttri.set_color(Graph_lib::Color::black);
+	bttri.Binary_tree::mark("llrlrl");
+	for (int i = 0; i < triangle_shape.size(); i++)
+	{
+		win4.attach(triangle_shape[i]);
+	}
+
+	win4.attach(bttri);
+	win4.wait_for_button();
+
+	/*Simple_window win5(tl, 1400, 800, "Binary tree for circle.");
+	Binary_tree_from_circle btcir(Point{ 300,50 }, 7);
+	btcir.set_color(Graph_lib::Color::red);
+	btcir.Binary_tree::mark("rlrrll");
+	for (int i = 0; i < circle_shape.size(); i++)
+	{
+		win5.attach(circle_shape[i]);
+	}
+	win5.attach(btcir);
+	win5.wait_for_button();*/
 }
 catch (const std::exception&)
 {
 	cout << "Not a positive argument for invoking graphical objects";
+	return 1;
 }
