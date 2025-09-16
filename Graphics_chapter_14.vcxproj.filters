@@ -50,5 +50,8 @@
     <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics_chapter_14.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

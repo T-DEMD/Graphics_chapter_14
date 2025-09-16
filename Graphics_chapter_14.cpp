@@ -4,24 +4,14 @@
 
 void Circle_shape::set_radius(int rad)
 {
-	using Shape::Shape;
-	Circle_shape(Point xy, int radius);
-	void draw_lines()const;
-
-	void set_radius(int rad)
-	{
-		if (r <= 0) throw exception();
-		r = rad;
-	}
+	if (r <= 0) throw exception();
+	r = rad;
+}
 
 void Circle_shape::move(int dx, int dy)
-	{
-		// move off...
-	}
-
-private:
-	int r;
-};
+{
+	// move off...
+}
 
 Circle_shape::Circle_shape(Point xy, int radius) : r{ radius }
 {
@@ -47,86 +37,68 @@ void Circle_shape::draw_lines() const
 
 void Smiley::draw_lines() const
 {
-	using Circle_shape::Circle_shape;
+	Circle_shape::draw_lines();
 
-	void draw_lines() const
-	{
-		Circle_shape::draw_lines();
-
-		if (color().visibility()) {
-			fl_color(color().as_int());
-			int rad = Circle_shape::radius();
-			fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
-			fl_arc(point(0).x + rad + (rad / 2) - (rad / 3), point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
-			fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad, rad, 200, 340);
-		}
+	if (color().visibility()) {
+		fl_color(color().as_int());
+		int rad = Circle_shape::radius();
+		fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
+		fl_arc(point(0).x + rad + (rad / 2) - (rad / 3), point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
+		fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad, rad, 200, 340);
 	}
-};
+}
 
 //--------------------------------------------------------------------
 
 void Frowny::draw_lines() const
-	{
-		Circle_shape::draw_lines();
+{
+	Circle_shape::draw_lines();
 
-		if (color().visibility()) {
-			int rad = Circle_shape::radius();
-			fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
-			fl_arc(point(0).x + rad + (rad / 2) - (rad / 3), point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
-			fl_arc(point(0).x + rad / 2, point(0).y + rad, rad, rad, 380, 160);
-		}
+	if (color().visibility()) {
+		int rad = Circle_shape::radius();
+		fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
+		fl_arc(point(0).x + rad + (rad / 2) - (rad / 3), point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
+		fl_arc(point(0).x + rad / 2, point(0).y + rad, rad, rad, 380, 160);
 	}
-};
+}
 
 //--------------------------------------------------------------------
 
 void Clowns_hat::draw_lines()const
-	{
-		Smiley::draw_lines();
+{
+	Smiley::draw_lines();
 
-		if (color().visibility())
-		{
-			int rad = Smiley::radius();
-			fl_color(fill_color().red);
-			fl_line(point(0).x, point(0).y + rad / 3, point(0).x + rad * 2, point(0).y + rad / 3);
-			fl_line(point(0).x, point(0).y + rad / 3, point(0).x + rad, point(0).y - rad * 2 + rad / 3);
-			fl_line(point(0).x + rad * 2, point(0).y + rad / 3, point(0).x + rad, point(0).y - rad * 2 + rad / 3);
-			fl_color(color().as_int());
-		}
+	if (color().visibility())
+	{
+		int rad = Smiley::radius();
+		fl_color(fill_color().red);
+		fl_line(point(0).x, point(0).y + rad / 3, point(0).x + rad * 2, point(0).y + rad / 3);
+		fl_line(point(0).x, point(0).y + rad / 3, point(0).x + rad, point(0).y - rad * 2 + rad / 3);
+		fl_line(point(0).x + rad * 2, point(0).y + rad / 3, point(0).x + rad, point(0).y - rad * 2 + rad / 3);
+		fl_color(color().as_int());
 	}
-};
+}
 
 //--------------------------------------------------------------------
 
 void Brick::draw_lines()const
 {
-	using Frowny::Frowny;
+	Frowny::draw_lines();
 
-	void draw_lines()const
+	if (color().visibility())
 	{
-		Frowny::draw_lines();
-
-		if (color().visibility())
-		{
-			int rad = Frowny::radius();
-			fl_color(66);
-			fl_line(point(0).x, point(0).y + rad / 3, point(0).x + rad * 2, point(0).y + rad / 3);
-			fl_line(point(0).x, point(0).y + rad / 3, point(0).x, point(0).y - rad);
-			fl_line(point(0).x, point(0).y - rad, point(0).x + rad * 2, point(0).y - rad);
-			fl_line(point(0).x + rad * 2, point(0).y + rad / 3, point(0).x + rad * 2, point(0).y - rad);
-			fl_color(color().as_int());
-		}
+		int rad = Frowny::radius();
+		fl_color(66);
+		fl_line(point(0).x, point(0).y + rad / 3, point(0).x + rad * 2, point(0).y + rad / 3);
+		fl_line(point(0).x, point(0).y + rad / 3, point(0).x, point(0).y - rad);
+		fl_line(point(0).x, point(0).y - rad, point(0).x + rad * 2, point(0).y - rad);
+		fl_line(point(0).x + rad * 2, point(0).y + rad / 3, point(0).x + rad * 2, point(0).y - rad);
+		fl_color(color().as_int());
 	}
-};
+}
 
 //--------------------------------------------------------------------
-
 // Striped rectangle from struct Rectangle
-struct Striped_rectangle : Graph_lib::Rectangle
-{
-	using Rectangle::Rectangle;
-	void draw_lines() const;
-};
 
 void Striped_rectangle::draw_lines() const
 {
@@ -149,13 +121,7 @@ void Striped_rectangle::draw_lines() const
 }
 
 //--------------------------------------------------------------------
-
 // Striped circle from struct circle
-struct Striped_circle : Circle_shape
-{
-	using Circle_shape::Circle_shape;
-	void draw_lines() const;
-};
 
 void Striped_circle::draw_lines() const
 {
@@ -182,26 +148,12 @@ void Striped_circle::draw_lines() const
 //--------------------------------------------------------------------
 Octagon::Octagon(Point xy, int rad) : r{ rad }, center_point{ xy }
 {
-	using Graph_lib::Shape::Shape;
-
-	Octagon(Point xy, int rad) : r{ rad }, center_point{ xy }
+	if (rad <= 0)
 	{
-		if (rad <= 0) 
-		{ 
-			throw exception();
-		} 
-		calculate_octagon_points();
+		throw exception();
 	}
-
-	int radius() { return r; }
-	void draw_lines() const;
-	void calculate_octagon_points();
-
-private:
-	int r;
-	Point center_point;
-	vector<Point> points;
-};
+	calculate_octagon_points();
+}
 
 void Octagon::calculate_octagon_points()
 {
@@ -271,45 +223,16 @@ void Octagon::draw_lines() const // filling in a polyhedron shape using the fltk
 
 //--------------------------------------------------------------------
 
-template<class T> class Group
+Chess::Chess(Point xy, int square) : p{ xy }, s{ square }
 {
-	vector<T*> v;
-	vector<T*> owned;
-public:
-	Group() {};
-	Group(T* a, T* b = 0, T* c = 0, T* d = 0);
-	~Group() { for (int i = 0; i < owned.size(); i++)delete owned[i]; }
-	void push_back(T& s) { v.push_back(&s); }
-	void push_back(T* p) { v.push_back(p); owned.push_back(p); }
-
-	T& operator[](int i) { return *v[i]; }
-	const T& operator[](int i)const { return *v[i]; }
-	int size()const { return v.size(); }
-};
+	if (square <= 0)
+	{
+		throw exception();
+	}
+	draw_chess_board();
+}
 
 //--------------------------------------------------------------------
-
-Group<Graph_lib::Shape> figure;
-class Chess : Graph_lib::Shape
-{
-	using Graph_lib::Shape::Shape;
-public:
-	Chess(Point xy, int square) : p{ xy }, s{ square }
-	{
-		if (square <= 0)
-		{
-			throw exception();
-		}
-		draw_chess_board();
-	}
-	
-	Point get_point() const;
-	void draw_chess_board();
-	int get_square() const { return s; }
-private:
-	int s;
-	Point p;
-};
 
 void Chess::draw_chess_board()
 {
@@ -350,7 +273,7 @@ Point Chess::get_point() const
 Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
 Graph_lib::Marks mrk1{ "8765432112345678" };
 
-void get_chess(Chess& obj) // refactoring
+void get_chess(Chess& obj) 
 {
 	
 	for (int i = 0; i < 8; i++)

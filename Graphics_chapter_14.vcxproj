@@ -158,6 +158,7 @@
     <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Simple_window.h" />
     <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Window.h" />
     <ClInclude Include="C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\std_lib_facilities.h" />
+    <ClInclude Include="Graphics_chapter_14.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
