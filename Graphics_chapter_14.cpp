@@ -1,15 +1,11 @@
-﻿#include "C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Simple_window.h" // get access to our window library
-#include "C:\Users\Tigran Mkhitarian\OneDrive\Документы\fltk_gui\GUI\Graph.h" // get access to our graphics library facilities
+﻿ #include "Graphics_chapter_14.h"
 
-// Chapter 14.
-// Solved: 1, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14.
-// Not solved: 2, 3, 7 (postponed).
-//--------------------------------------------------------------------
+//----------------------------------------------------------------------Chapter 14.
 
-struct New_circle : Graph_lib::Shape
+void Circle_shape::set_radius(int rad)
 {
 	using Shape::Shape;
-	New_circle(Point xy, int radius);
+	Circle_shape(Point xy, int radius);
 	void draw_lines()const;
 
 	void set_radius(int rad)
@@ -18,9 +14,7 @@ struct New_circle : Graph_lib::Shape
 		r = rad;
 	}
 
-	int radius()const { return r; }
-
-	void move(int dx, int dy)override
+void Circle_shape::move(int dx, int dy)
 	{
 		// move off...
 	}
@@ -29,13 +23,13 @@ private:
 	int r;
 };
 
-New_circle::New_circle(Point xy, int radius) : r{ radius }
+Circle_shape::Circle_shape(Point xy, int radius) : r{ radius }
 {
 	if (xy.x <= 0 || xy.y <= 0 || radius <= 0) throw exception();
 	add(xy);
 }
 
-void New_circle::draw_lines() const
+void Circle_shape::draw_lines() const
 {
 	if (fill_color().visibility()) {	// fill
 		fl_color(fill_color().as_int());
@@ -51,17 +45,17 @@ void New_circle::draw_lines() const
 
 //--------------------------------------------------------------------
 
-struct Smiley : New_circle
+void Smiley::draw_lines() const
 {
-	using New_circle::New_circle;
+	using Circle_shape::Circle_shape;
 
 	void draw_lines() const
 	{
-		New_circle::draw_lines();
+		Circle_shape::draw_lines();
 
 		if (color().visibility()) {
 			fl_color(color().as_int());
-			int rad = New_circle::radius();
+			int rad = Circle_shape::radius();
 			fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
 			fl_arc(point(0).x + rad + (rad / 2) - (rad / 3), point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
 			fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad, rad, 200, 340);
@@ -71,16 +65,12 @@ struct Smiley : New_circle
 
 //--------------------------------------------------------------------
 
-struct Frowny : New_circle
-{
-	using New_circle::New_circle;
-
-	void draw_lines() const
+void Frowny::draw_lines() const
 	{
-		New_circle::draw_lines();
+		Circle_shape::draw_lines();
 
 		if (color().visibility()) {
-			int rad = New_circle::radius();
+			int rad = Circle_shape::radius();
 			fl_arc(point(0).x + rad / 2, point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
 			fl_arc(point(0).x + rad + (rad / 2) - (rad / 3), point(0).y + rad / 2, rad / 3, rad / 3, 0, 360);
 			fl_arc(point(0).x + rad / 2, point(0).y + rad, rad, rad, 380, 160);
@@ -90,11 +80,7 @@ struct Frowny : New_circle
 
 //--------------------------------------------------------------------
 
-struct Clowns_hat : Smiley
-{
-	using Smiley::Smiley;
-
-	void draw_lines()const
+void Clowns_hat::draw_lines()const
 	{
 		Smiley::draw_lines();
 
@@ -112,7 +98,7 @@ struct Clowns_hat : Smiley
 
 //--------------------------------------------------------------------
 
-struct Brick : Frowny
+void Brick::draw_lines()const
 {
 	using Frowny::Frowny;
 
@@ -165,15 +151,15 @@ void Striped_rectangle::draw_lines() const
 //--------------------------------------------------------------------
 
 // Striped circle from struct circle
-struct Striped_circle : New_circle
+struct Striped_circle : Circle_shape
 {
-	using New_circle::New_circle;
+	using Circle_shape::Circle_shape;
 	void draw_lines() const;
 };
 
 void Striped_circle::draw_lines() const
 {
-	int nr = New_circle::radius();
+	int nr = Circle_shape::radius();
 	int step = 25;
 
 	if (fill_color().visibility()) {
@@ -194,38 +180,30 @@ void Striped_circle::draw_lines() const
 }
 
 //--------------------------------------------------------------------
-
-struct Striped_closed_polyline : Graph_lib::Shape
-{
-	using Graph_lib::Shape::Shape;
-};
-
-//--------------------------------------------------------------------
-
-struct Octagon : Graph_lib::Shape
+Octagon::Octagon(Point xy, int rad) : r{ rad }, center_point{ xy }
 {
 	using Graph_lib::Shape::Shape;
 
-	Octagon(Point xy, int rad) : r{ rad }, _xy{ xy } 
+	Octagon(Point xy, int rad) : r{ rad }, center_point{ xy }
 	{
 		if (rad <= 0) 
 		{ 
 			throw exception();
 		} 
-		add_f();
+		calculate_octagon_points();
 	}
 
 	int radius() { return r; }
 	void draw_lines() const;
-	void add_f();
+	void calculate_octagon_points();
 
 private:
 	int r;
-	Point _xy;
+	Point center_point;
 	vector<Point> points;
 };
 
-void Octagon::add_f()
+void Octagon::calculate_octagon_points()
 {
 	// defining corners octagon
 	int t = 0;
@@ -233,22 +211,22 @@ void Octagon::add_f()
 	A = 2 * r;
 	t = A / 2.414;
 	Point a, b, c, d, e, f, g, h;
-	a.x = _xy.x - r;
-	a.y = _xy.y - t / 2;
-	b.x = _xy.x - t / 2;
-	b.y = _xy.y - r;
-	c.x = _xy.x + t / 2;
-	c.y = _xy.y - r;
-	d.x = _xy.x + r;
-	d.y = _xy.y - t / 2;
-	e.x = _xy.x + r;
-	e.y = _xy.y + t / 2;
-	f.x = _xy.x + t / 2;
-	f.y = _xy.y + r;
-	g.x = _xy.x - t / 2;
-	g.y = _xy.y + r;
-	h.x = _xy.x - r;
-	h.y = _xy.y + t / 2;
+	a.x = center_point.x - r;
+	a.y = center_point.y - t / 2;
+	b.x = center_point.x - t / 2;
+	b.y = center_point.y - r;
+	c.x = center_point.x + t / 2;
+	c.y = center_point.y - r;
+	d.x = center_point.x + r;
+	d.y = center_point.y - t / 2;
+	e.x = center_point.x + r;
+	e.y = center_point.y + t / 2;
+	f.x = center_point.x + t / 2;
+	f.y = center_point.y + r;
+	g.x = center_point.x - t / 2;
+	g.y = center_point.y + r;
+	h.x = center_point.x - r;
+	h.y = center_point.y + t / 2;
 
 	// add corners octagon for draw sides (lines)
 	// You need to make the following changes: add only one point - add(a) and draw the rest of the lines from it.
@@ -372,7 +350,7 @@ Point Chess::get_point() const
 Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
 Graph_lib::Marks mrk1{ "8765432112345678" };
 
-void get_chess(Chess& obj) 
+void get_chess(Chess& obj) // refactoring
 {
 	
 	for (int i = 0; i < 8; i++)
@@ -519,19 +497,19 @@ struct Binary_tree : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
 	virtual void add(Point p) { Shape::add(p); }
-	virtual void mark(string marks) { lab = marks; }
+	virtual void mark(string marks) { label_sequence = marks; }
 protected:
 	Binary_tree() {}
 	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
 	virtual void draw_lines()const;
-	virtual void f_k(int k)const;
+	virtual void draw_branch(int k)const;
 	virtual void sort_marks()const;
-	virtual void set_level(int level) { lev = level; }
-	virtual int get_level() { return lev; }
+	virtual void set_level(int level) { tree_level = level; }
+	virtual int get_level() { return tree_level; }
 private:
-	int lev;
+	int tree_level;
 	string s;
-	string lab;
+	string label_sequence;
 };
 
 // function for draw branches
@@ -547,14 +525,14 @@ void Binary_tree::draw_lines() const
 			end = i * 2;
 			for (int y = start; y < end; y++)
 			{
-				f_k(y);
+				draw_branch(y);
 			}
 		}
 	}
 	sort_marks();
 }
 
-void Binary_tree::f_k(int k) const
+void Binary_tree::draw_branch(int k) const
 {
 	if (s == "down") // curve arrow
 	{
@@ -593,22 +571,22 @@ void Binary_tree::f_k(int k) const
 
 void Binary_tree::sort_marks()const
 {
-	char r = 'R';
+	char r = 'R'; // Root
 	int iter = 1;
 	draw_mark(point(1), r);
-	for (int i = 0; i < lev - 1; i++)
+	for (int i = 0; i < tree_level - 1; i++)
 	{
 		fl_color(0);
-		if (lab[i % lab.size()] == 'l') // rewrite to switch
+		if (label_sequence[i % label_sequence.size()] == 'l') // rewrite to switch
 		{
 			iter *= 2;
-			draw_mark(point(iter), lab[i % lab.size()]);
+			draw_mark(point(iter), label_sequence[i % label_sequence.size()]);
 		}
-		else if (lab[i % lab.size()] == 'r')
+		else if (label_sequence[i % label_sequence.size()] == 'r')
 		{
 			iter *= 2;
 			iter += 1;
-			draw_mark(point(iter), lab[i % lab.size()]);
+			draw_mark(point(iter), label_sequence[i % label_sequence.size()]);
 		}
 	}
 }
@@ -810,7 +788,7 @@ void Binary_tree_from_circle::draw_circle()
 		for (int i = 1; i <= n; i++)
 		{
 			xx += 100; // x--
-			circle_shape.push_back(new New_circle(Point{ xy.x + xx, xy.y + yy }, 10));
+			circle_shape.push_back(new Circle_shape(Point{ xy.x + xx, xy.y + yy }, 10));
 			add(Point{ xy.x + xx + 10, xy.y + yy + 10 });
 			circle_shape[circle_shape.size() - 1].set_color(8);
 			circle_shape[circle_shape.size() - 1].set_fill_color(7);
@@ -840,7 +818,7 @@ int main() try
 	poly.set_color(Graph_lib::Color::yellow);
 	win.attach(poly);
 
-	New_circle nc(Point{ 100,200 }, 50);
+	Circle_shape nc(Point{ 100,200 }, 50);
 	nc.set_color(Graph_lib::Color::black);
 	nc.move(500, 500);
 	win.attach(nc);
