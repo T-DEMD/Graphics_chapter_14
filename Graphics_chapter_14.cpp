@@ -270,10 +270,10 @@ Point Chess::get_point() const
 	return p;
 }
 
-Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" };
+Graph_lib::Marks mrk{ "ABCDEFGHHGFEDCBA" }; // Chess notation.
 Graph_lib::Marks mrk1{ "8765432112345678" };
 
-void get_chess(Chess& obj) 
+void get_chess(Chess& obj)
 {
 	
 	for (int i = 0; i < 8; i++)
@@ -299,25 +299,7 @@ void get_chess(Chess& obj)
 }
 
 //--------------------------------------------------------------------
-// Pseudo window class
-
-struct Pseudo_window : Graph_lib::Shape
-{
-	using Graph_lib::Shape::Shape;
-	Pseudo_window(Point xy, int hh, int ww);
-	Pseudo_window(Point x, Point y);
-	void new_box();
-	void draw_lines() const;
-
-private:
-	int h;
-	int w;
-	int width = 0;
-	int height = 0;
-	int angle = 10;
-	string new_text = "Chess";
-	Point xyz;
-};
+// Pseudo window class. 
 
 Pseudo_window::Pseudo_window(Point xy, int ww, int hh) : w{ ww }, h{ hh }, xyz{ xy }
 {
@@ -374,17 +356,6 @@ void Pseudo_window::new_box()
 //--------------------------------------------------------------------
 // struct draw Triangle
 
-struct Triangle : Graph_lib::Shape
-{
-	using Graph_lib::Shape::Shape;
-	Triangle() {}
-	Triangle(Point x) : xy{ x } { add(xy); draw_lines(); }
-	void draw_lines()const;
-	Point get_center_point() { return xy; }
-private:
-	Point xy;
-};
-
 void Triangle::draw_lines()const
 {
 	Graph_lib::Shape::draw_lines();
@@ -406,7 +377,6 @@ void Triangle::draw_lines()const
 }
 
 //--------------------------------------------------------------------
-
 // vector for save node center point
 void draw_mark(Point xy, char c)
 {
