@@ -243,8 +243,8 @@ void Chess::draw_chess_board()
 	{
 		for (int j = 0; j < 8; ++j)
 		{
-			figure.push_back(new Graph_lib::Rectangle(Point{ i * s + x, j * s + y }, s, s));
-			figure[figure.size() - 1].set_fill_color(color);
+			figure_for_chess.push_back(new Graph_lib::Rectangle(Point{ i * s + x, j * s + y }, s, s));
+			figure_for_chess[figure_for_chess.size() - 1].set_fill_color(color);
 			if (color == 0)
 			{
 				color += 7;
@@ -386,25 +386,6 @@ void draw_mark(Point xy, char c)
 	fl_draw(m.c_str(), xy.x - dx, xy.y + dy);
 }
 
-struct Binary_tree : Graph_lib::Shape
-{
-	using Graph_lib::Shape::Shape;
-	virtual void add(Point p) { Shape::add(p); }
-	virtual void mark(string marks) { label_sequence = marks; }
-protected:
-	Binary_tree() {}
-	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
-	virtual void draw_lines()const;
-	virtual void draw_branch(int k)const;
-	virtual void sort_marks()const;
-	virtual void set_level(int level) { tree_level = level; }
-	virtual int get_level() { return tree_level; }
-private:
-	int tree_level;
-	string s;
-	string label_sequence;
-};
-
 // function for draw branches
 void Binary_tree::draw_lines() const
 {
@@ -486,17 +467,6 @@ void Binary_tree::sort_marks()const
 
 //--------------------------------------------------------------------
 
-Group<Graph_lib::Shape> triangle_shape;
-struct Binary_tree_from_triangle : Binary_tree
-{
-	using Binary_tree::Binary_tree;
-	Binary_tree_from_triangle(Point p, int level);
-	Binary_tree_from_triangle(Point p, int level, string arrow);
-	void draw_triangle();
-private:
-	int levels;
-	Point xy;
-};
 
 // forced reduction levels and defining variables
 Binary_tree_from_triangle::Binary_tree_from_triangle(Point p, int level) : xy{ p }, levels{ level }
@@ -554,18 +524,6 @@ void Binary_tree_from_triangle::draw_triangle()
 }
 
 //--------------------------------------------------------------------
-
-Group<Graph_lib::Shape> rectangle_shape;
-struct Binary_tree_from_rectangle : Binary_tree
-{
-	using Binary_tree::Binary_tree;
-	Binary_tree_from_rectangle(Point p, int level);
-	Binary_tree_from_rectangle(Point p, int level, string arrow);
-	void draw_rectangle();
-private:
-	int levels;
-	Point xy;
-};
 
 // forced reduction levels and defining variables
 Binary_tree_from_rectangle::Binary_tree_from_rectangle(Point p, int level) : xy{ p }
@@ -626,17 +584,7 @@ void Binary_tree_from_rectangle::draw_rectangle()
 
 //--------------------------------------------------------------------
 
-Group<Graph_lib::Shape> circle_shape;
-struct Binary_tree_from_circle : Binary_tree
-{
-	using Binary_tree::Binary_tree;
-	Binary_tree_from_circle(Point p, int level);
-	Binary_tree_from_circle(Point p, int level, string arrow);
-	void draw_circle();
-private:
-	int levels;
-	Point xy;
-};
+
 
 Binary_tree_from_circle::Binary_tree_from_circle(Point p, int level) : xy{ p }
 {
@@ -783,9 +731,9 @@ int main() try
 	win2.attach(mrk);
 	win2.attach(mrk1);
 
-	for (int i = 0; i < figure.size(); i++)
+	for (int i = 0; i < figure_for_chess.size(); i++)
 	{
-		win2.attach(figure[i]);
+		win2.attach(figure_for_chess[i]);
 	}
 
 	win2.wait_for_button();

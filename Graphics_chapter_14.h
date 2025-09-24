@@ -9,7 +9,6 @@
 
 
 //------  Circle_shape  -----------
-// Графическая окружность, наследуемая от Graph_lib::Shape.
 
 struct Circle_shape : Graph_lib::Shape
 {
@@ -104,7 +103,7 @@ template<class T> class Group
 	vector<T*> owned;
 public:
 	Group() {};
-	Group(T* a, T* b = 0, T* c = 0, T* d = 0);
+	/*Group(T* a, T* b = 0, T* c = 0, T* d = 0);*/
 	~Group() { for (int i = 0; i < owned.size(); i++)delete owned[i]; }
 	void push_back(T& s) { v.push_back(&s); }
 	void push_back(T* p) { v.push_back(p); owned.push_back(p); }
@@ -115,7 +114,7 @@ public:
 };
 
 //--------------------------------------------------------------------
-Group<Graph_lib::Shape> figure;
+Group<Graph_lib::Shape> figure_for_chess;
 class Chess : Graph_lib::Shape
 {
 	using Graph_lib::Shape::Shape;
@@ -162,5 +161,62 @@ private:
 };
 
 //--------------------------------------------------------------------
+struct Binary_tree : Graph_lib::Shape
+{
+	using Graph_lib::Shape::Shape;
+	virtual void add(Point p) { Shape::add(p); }
+	virtual void mark(string marks) { label_sequence = marks; }
+protected:
+	Binary_tree() {}
+	Binary_tree(string arrow_up_down) :s{ arrow_up_down } {}
+	virtual void draw_lines()const;
+	virtual void draw_branch(int k)const;
+	virtual void sort_marks()const;
+	virtual void set_level(int level) { tree_level = level; }
+	virtual int get_level() { return tree_level; }
+private:
+	int tree_level;
+	string s;
+	string label_sequence;
+};
 
+//--------------------------------------------------------------------
+Group<Graph_lib::Shape> triangle_shape;
+struct Binary_tree_from_triangle : Binary_tree
+{
+	using Binary_tree::Binary_tree;
+	Binary_tree_from_triangle(Point p, int level);
+	Binary_tree_from_triangle(Point p, int level, string arrow);
+	void draw_triangle();
+private:
+	int levels;
+	Point xy;
+};
+
+
+//--------------------------------------------------------------------
+Group<Graph_lib::Shape> rectangle_shape;
+struct Binary_tree_from_rectangle : Binary_tree
+{
+	using Binary_tree::Binary_tree;
+	Binary_tree_from_rectangle(Point p, int level);
+	Binary_tree_from_rectangle(Point p, int level, string arrow);
+	void draw_rectangle();
+private:
+	int levels;
+	Point xy;
+};
+
+//--------------------------------------------------------------------
+Group<Graph_lib::Shape> circle_shape;
+struct Binary_tree_from_circle : Binary_tree
+{
+	using Binary_tree::Binary_tree;
+	Binary_tree_from_circle(Point p, int level);
+	Binary_tree_from_circle(Point p, int level, string arrow);
+	void draw_circle();
+private:
+	int levels;
+	Point xy;
+};
 
