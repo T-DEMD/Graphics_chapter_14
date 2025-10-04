@@ -1,4 +1,4 @@
-﻿ #include "Graphics_chapter_14.h"
+﻿#include "Graphics_chapter_14.h"
 
 //----------------------------------------------------------------------Chapter 14.
 
@@ -181,25 +181,11 @@ void Octagon::calculate_octagon_points()
 	h.y = center_point.y + t / 2;
 
 	// add corners octagon for draw sides (lines)
-	// You need to make the following changes: add only one point - add(a) and draw the rest of the lines from it.
-	// Нужно внести изменения следующего характера: добавить только одну точку - add(a) и от него отрисовать остальные линии.
-
-	Shape::add(a);
-	Shape::add(b);
-	Shape::add(b);
-	Shape::add(c);
-	Shape::add(c);
-	Shape::add(d);
-	Shape::add(d);
-	Shape::add(e);
-	Shape::add(e);
-	Shape::add(f);
-	Shape::add(f);
-	Shape::add(g);
-	Shape::add(g);
-	Shape::add(h);
-	Shape::add(h);
-	Shape::add(a);
+	vector<Point> shapes = {a,b,b,c,c,d,d,e,e,f,f,g,g,h,h,a};
+	for(Point shape: shapes)
+	{
+		add(shape);
+	}
 }
 
 void Octagon::draw_lines() const // filling in a polyhedron shape using the fltk library

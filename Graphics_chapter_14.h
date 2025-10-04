@@ -193,7 +193,6 @@ private:
 	Point xy;
 };
 
-
 //--------------------------------------------------------------------
 Group<Graph_lib::Shape> rectangle_shape;
 struct Binary_tree_from_rectangle : Binary_tree
@@ -219,4 +218,3 @@ private:
 	int levels;
 	Point xy;
 };
-
